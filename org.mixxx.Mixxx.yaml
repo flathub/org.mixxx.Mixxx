@@ -5,8 +5,8 @@ sdk: org.kde.Sdk
 command: mixxx
 finish-args:
   - --share=ipc
-  - --socket=wayland
-  - --socket=fallback-x11
+  # - --socket=wayland
+  - --socket=x11
   - --socket=pulseaudio
   - --filesystem=xdg-music:ro
   - --persist=.mixxx
