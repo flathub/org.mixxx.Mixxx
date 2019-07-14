@@ -27,6 +27,7 @@ cleanup:
   - /lib/pkgconfig
 modules:
   - shared-modules/glu/glu-9.0.0.json
+  - shared-modules/libmad/libmad.json
 
   - name: protobuf
     config-opts:
@@ -136,8 +137,6 @@ modules:
             strip-components: 0
         cleanup:
           - /bin
-
-  - libmad/libmad.json
 
   - libid3tag/libid3tag.json
 
