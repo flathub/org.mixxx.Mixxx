@@ -6,7 +6,7 @@ command: mixxx
 finish-args:
   - --share=ipc
   - --socket=wayland
-  - --socket=fallback-x11
+  - --socket=x11
   - --socket=pulseaudio
   - --share=network
   - --filesystem=xdg-music:ro
@@ -28,6 +28,7 @@ cleanup:
   - /lib/pkgconfig
 modules:
   - shared-modules/glu/glu-9.0.0.json
+  - shared-modules/libmad/libmad.json
 
   - name: protobuf
     config-opts:
@@ -137,8 +138,6 @@ modules:
             strip-components: 0
         cleanup:
           - /bin
-
-  - libmad/libmad.json
 
   - libid3tag/libid3tag.json
 
@@ -331,6 +330,14 @@ modules:
         url: http://downloads.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz
         sha256: 77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad
 
+  - name: opusfile
+    config-opts:
+      - --disable-static
+    sources: 
+      - type: archive
+        url: https://github.com/xiph/opusfile/archive/v0.11.tar.gz
+        sha256: c2105cffc59545ffc0d2a65069e2f222a1712bbe579911ac0a3d3660edbbec57
+
   - name: mixxx
     buildsystem: simple
     build-commands:
@@ -346,6 +353,7 @@ modules:
     post-install:
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
+      - sed -i 's/type="generic"/type="desktop-application"/' ${FLATPAK_DEST}/share/appdata/mixxx.appdata.xml
     sources:
       - type: archive
         url: https://github.com/mixxxdj/mixxx/archive/release-2.2.1.tar.gz
