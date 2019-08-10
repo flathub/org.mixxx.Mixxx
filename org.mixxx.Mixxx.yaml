@@ -8,6 +8,7 @@ finish-args:
   - --socket=wayland
   - --socket=x11
   - --socket=pulseaudio
+  - --share=network
   - --filesystem=xdg-music:ro
   - --persist=.mixxx
   - --device=all
@@ -290,6 +291,45 @@ modules:
           url: https://download.gnome.org/sources/libgudev/232/libgudev-232.tar.xz
           sha256: ee4cb2b9c573cdf354f6ed744f01b111d4b5bed3503ffa956cefff50489c7860
 
+  - name: libshout
+    config-opts:
+      - --disable-static
+      - --with-pic
+    sources:
+      - type: archive
+        url: http://downloads.xiph.org/releases/libshout/libshout-2.4.3.tar.gz
+        sha256: 0d8af55d1141bf90710bcd41a768c9cc5adb251502a0af1dd22c8da215d40dfe
+
+  - name: faad2
+    config-opts:
+      - --disable-static
+      - --with-pic
+    sources:
+      - type: archive
+        url: http://downloads.sourceforge.net/project/faac/faad2-src/faad2-2.8.0/faad2-2.8.8.tar.gz
+        sha256: 985c3fadb9789d2815e50f4ff714511c79c2710ac27a4aaaf5c0c2662141426d
+  
+  - name: mp4v2
+    config-opts:
+      - --disable-static
+      - --with-pic
+      - --disable-debug
+    sources:
+      - type: archive
+        url: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2
+        sha256: 0319b9a60b667cf10ee0ec7505eb7bdc0a2e21ca7a93db96ec5bd758e3428338
+      - type: patch
+        path: patches/mp4v2/libmp4v2-c++11.patch
+        strip-components: 0
+  
+  - name: libmodplug
+    config-opts:
+      - --with-pic
+    sources:
+      - type: archive
+        url: http://downloads.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz
+        sha256: 77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad
+
   - name: opusfile
     config-opts:
       - --disable-static
@@ -301,7 +341,7 @@ modules:
   - name: mixxx
     buildsystem: simple
     build-commands:
-      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} shoutcast=0 optimize=native
+      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} ffmpeg=1 faad=1 optimize=native
       - scons prefix=${FLATPAK_DEST} install
       - install -Dm644 ${FLATPAK_DEST}/share/pixmaps/mixxx_icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - icon_in="${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
