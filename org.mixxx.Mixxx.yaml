@@ -36,8 +36,8 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.8.0/protobuf-all-3.8.0.tar.gz
-        sha256: b7220b41481011305bf9100847cf294393973e869973a9661046601959b2960b
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.9.1/protobuf-all-3.9.1.tar.gz
+        sha256: 3040a5b946d9df7aa89c0bf6981330bf92b7844fd90e71b61da0c721e421a421
     cleanup:
       - /bin
 
@@ -47,8 +47,8 @@ modules:
       - python3 setup.py install --prefix=${FLATPAK_DEST} --optimize=1
     sources:
       - type: archive
-        url: http://downloads.sourceforge.net/project/scons/scons/3.0.5/scons-3.0.5.tar.gz
-        sha256: df676f23dc6d4bfa384fc389d95dcd21ab907e6349d4c848958ba4befb73c73e
+        url: http://downloads.sourceforge.net/project/scons/scons/3.1.1/scons-3.1.1.tar.gz
+        sha256: 4cea417fdd7499a36f407923d03b4b7000b0f9e8fd7b31b316b9ce7eba9143a5
     cleanup:
       - '*'
 
@@ -147,8 +147,8 @@ modules:
       - --disable-udev
     sources: 
       - type: archive
-        url: https://github.com/libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2
-        sha256: 75aeb9d59a4fdb800d329a545c2e6799f732362193b465ea198f2aa275518157
+        url: https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.tar.bz2
+        sha256: db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d
 
   - name: lilv
     buildsystem: simple
@@ -280,16 +280,16 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://upower.freedesktop.org/releases/upower-0.99.7.tar.xz
-        sha256: 24bcc2f6ab25a2533bac70b587bcb019e591293076920f5b5e04bdedc140a401
+        url: https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
+        sha256: 64b5ffbfccd5bdb15d925777979a4dbee1a957f9eaeb158dc76175267eddbdef
     modules:
     - name: gudev
       config-opts:
         - --disable-umockdev
       sources: 
         - type: archive
-          url: https://download.gnome.org/sources/libgudev/232/libgudev-232.tar.xz
-          sha256: ee4cb2b9c573cdf354f6ed744f01b111d4b5bed3503ffa956cefff50489c7860
+          url: https://download.gnome.org/sources/libgudev/233/libgudev-233.tar.xz
+          sha256: 587c4970eb23f4e2deee2cb1fb7838c94a78c578f41ce12cac0a3f4a80dabb03
 
   - name: libshout
     config-opts:
@@ -353,8 +353,7 @@ modules:
     post-install:
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
-      - sed -i 's/type="generic"/type="desktop-application"/' ${FLATPAK_DEST}/share/appdata/mixxx.appdata.xml
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/mixxx/archive/release-2.2.1.tar.gz
-        sha256: 9011c854014a1ce826fe465d92693800f50fc97b806f6ba8935ebe2d89f05b31
+        url: https://github.com/mixxxdj/mixxx/archive/release-2.2.2.tar.gz
+        sha256: 8dd95eff4b80081b756d4c09977c3e56c409429565260db7be0e7f145ef7f68e
