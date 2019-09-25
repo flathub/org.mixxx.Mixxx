@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.12'
+runtime-version: '5.13'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -12,10 +12,7 @@ finish-args:
   - --filesystem=xdg-music:ro
   - --persist=.mixxx
   - --device=all
-  - --filesystem=xdg-run/dconf
-  - --filesystem=~/.config/dconf:ro
-  - --talk-name=ca.desrt.dconf
-  - --env=DCONF_USER_CONFIG_DIR=.config/dconf
+  - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
   - --env=LADSPA_PATH=${FLATPAK_DEST}/lib/ladspa
   - --system-talk-name=org.freedesktop.UPower
 rename-desktop-file: mixxx.desktop
