@@ -289,3 +289,5 @@ modules:
       - type: archive
         url: https://github.com/mixxxdj/mixxx/archive/release-2.2.2.tar.gz
         sha256: 8dd95eff4b80081b756d4c09977c3e56c409429565260db7be0e7f145ef7f68e
+      - type: patch
+        path: patches/mixxx/appdata.patch
