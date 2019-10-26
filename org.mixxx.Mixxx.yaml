@@ -273,7 +273,7 @@ modules:
   - name: mixxx
     buildsystem: simple
     build-commands:
-      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} ffmpeg=1 faad=1 optimize=native
+      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} ffmpeg=1 faad=1
       - scons prefix=${FLATPAK_DEST} install
       - install -Dm644 ${FLATPAK_DEST}/share/pixmaps/mixxx_icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - icon_in="${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
