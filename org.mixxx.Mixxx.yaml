@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.12'
+runtime-version: '5.13'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -12,10 +12,7 @@ finish-args:
   - --filesystem=xdg-music:ro
   - --persist=.mixxx
   - --device=all
-  - --filesystem=xdg-run/dconf
-  - --filesystem=~/.config/dconf:ro
-  - --talk-name=ca.desrt.dconf
-  - --env=DCONF_USER_CONFIG_DIR=.config/dconf
+  - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
   - --env=LADSPA_PATH=${FLATPAK_DEST}/lib/ladspa
   - --system-talk-name=org.freedesktop.UPower
 rename-desktop-file: mixxx.desktop
@@ -27,8 +24,10 @@ cleanup:
   - '*.la'
   - /lib/pkgconfig
 modules:
-  - shared-modules/glu/glu-9.0.0.json
+  - shared-modules/glu/glu-9.json
   - shared-modules/libmad/libmad.json
+  - shared-modules/python2.7/python-2.7.json
+  - shared-modules/gudev/gudev.json
 
   - name: protobuf
     config-opts:
@@ -214,83 +213,16 @@ modules:
             url: 'https://download.drobilla.net/sratom-0.6.2.tar.bz2'
             sha256: 0a514a55d6b6cb7b5d6f32d1dcb78a1e6e54537fa22fce533e4ef6adf240e853
 
-  - name: systemd
-    buildsystem: meson
-    config-opts:
-    - --libdir=lib
-    - -Drootprefix=/app
-    - -Drootlibdir=/app/lib
-    - -Dsysconfdir=/app/etc
-    - -Dutmp=false
-    - -Dhibernate=false
-    - -Dldconfig=false
-    - -Dresolve=false
-    - -Defi=false
-    - -Dtpm=false
-    - -Denvironment-d=false
-    - -Dbinfmt=false
-    - -Dcoredump=false
-    - -Dlogind=false
-    - -Dhostnamed=false
-    - -Dlocaled=false
-    - -Dmachined=false
-    - -Dportabled=false
-    - -Dnetworkd=false
-    - -Dtimedated=false
-    - -Dtimesyncd=false
-    - -Dremote=false
-    - -Dnss-myhostname=false
-    - -Dnss-mymachines=false
-    - -Dnss-resolve=false
-    - -Dnss-systemd=false
-    - -Dfirstboot=false
-    - -Drandomseed=false
-    - -Dbacklight=false
-    - -Dvconsole=false
-    - -Dquotacheck=false
-    - -Dsysusers=false
-    - -Dtmpfiles=false
-    - -Dimportd=false
-    - -Dhwdb=false
-    - -Drfkill=false
-    - -Dman=false
-    - -Dhtml=false
-    - -Dbashcompletiondir=no
-    - -Dzshcompletiondir=no
-    sources:
-    - type: git
-      url: https://github.com/systemd/systemd.git
-      tag: v242
-      commit: 1e5d2d656420d0e755dbcf72aeba3c3aba54e956
-    cleanup:
-    - /bin
-    - /etc
-    # - /lib/libudev*
-    - /lib/kernel
-    - /lib/modprobe.d
-    - /lib/rpm
-    - /lib/sysctl.d
-    - /lib/systemd
-    # - /lib/udev
-    - /share
-
   - name: upower
     config-opts: 
       - --disable-static
       - --with-pic
+      - --with-systemdsystemunitdir=/app/lib/systemd/system
     sources:
       - type: archive
         url: https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
         sha256: 64b5ffbfccd5bdb15d925777979a4dbee1a957f9eaeb158dc76175267eddbdef
     modules:
-    - name: gudev
-      config-opts:
-        - --disable-umockdev
-      sources: 
-        - type: archive
-          url: https://download.gnome.org/sources/libgudev/233/libgudev-233.tar.xz
-          sha256: 587c4970eb23f4e2deee2cb1fb7838c94a78c578f41ce12cac0a3f4a80dabb03
-
   - name: libshout
     config-opts:
       - --disable-static
@@ -341,7 +273,7 @@ modules:
   - name: mixxx
     buildsystem: simple
     build-commands:
-      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} ffmpeg=1 faad=1 optimize=native
+      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} build=release ffmpeg=1 faad=1
       - scons prefix=${FLATPAK_DEST} install
       - install -Dm644 ${FLATPAK_DEST}/share/pixmaps/mixxx_icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - icon_in="${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
@@ -357,3 +289,5 @@ modules:
       - type: archive
         url: https://github.com/mixxxdj/mixxx/archive/release-2.2.2.tar.gz
         sha256: 8dd95eff4b80081b756d4c09977c3e56c409429565260db7be0e7f145ef7f68e
+      - type: patch
+        path: patches/mixxx/appdata.patch
