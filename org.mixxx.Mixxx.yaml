@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.13'
+runtime-version: '5.14'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -223,7 +223,7 @@ modules:
       - type: archive
         url: https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
         sha256: 64b5ffbfccd5bdb15d925777979a4dbee1a957f9eaeb158dc76175267eddbdef
-    modules:
+
   - name: libshout
     config-opts:
       - --disable-static
@@ -288,7 +288,7 @@ modules:
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/mixxx/archive/release-2.2.2.tar.gz
-        sha256: 8dd95eff4b80081b756d4c09977c3e56c409429565260db7be0e7f145ef7f68e
+        url: https://github.com/mixxxdj/mixxx/archive/release-2.2.3.tar.gz
+        sha256: 69230dca511ba08a284a22a979ff05b62130e97156d39a044bb4045f5f43cd2e
       - type: patch
         path: patches/mixxx/appdata.patch
