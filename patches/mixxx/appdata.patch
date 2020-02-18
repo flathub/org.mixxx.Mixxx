@@ -1,23 +1,38 @@
-From 5c3222a6118b507ea1d6ace18b22678fabfcc276 Mon Sep 17 00:00:00 2001
-From: Rebecca Wallander <FakeShemp@users.noreply.github.com>
-Date: Thu, 11 Jul 2019 14:45:35 +0200
-Subject: [PATCH] Add desktop-application to appdata so that it shows up in
- storefronts
-
-https://www.freedesktop.org/software/appstream/docs/sect-Metadata-Application.html
----
- res/linux/mixxx.appdata.xml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
 diff --git a/res/linux/mixxx.appdata.xml b/res/linux/mixxx.appdata.xml
-index d2366c31705..b0899019982 100644
+index 39bb082aeb..31a24f8289 100644
 --- a/res/linux/mixxx.appdata.xml
 +++ b/res/linux/mixxx.appdata.xml
-@@ -1,6 +1,6 @@
- <?xml version="1.0" encoding="UTF-8"?>
- <!-- Author 2014 Tuukka Pasanen <pasanen.tuukka@gmail.com> -->
--<component>
-+<component type="desktop-application">
-   <id>org.mixxx.Mixxx</id>
-   <launchable type="desktop-id">mixxx.desktop</launchable>
-   <metadata_license>CC-BY-SA-3.0</metadata_license>
+@@ -48,4 +48,33 @@
+   <url type="help">https://www.mixxx.org/support</url>
+   <url type="translate">https://www.transifex.com/mixxx-dj-software/public</url>
+   <update_contact>mixxx-devel@lists.sourceforge.net</update_contact>
++  <content_rating type="oars-1.0" />
++  <releases>
++    <release version="2.2.3" date="2019-12-09">
++      <url>https://github.com/mixxxdj/mixxx/releases/tag/release-2.2.3</url>
++      <description>
++        <ul>
++          <li>Don't make users reconfigure sound hardware when it has not changed #2253</li>
++          <li>Fix MusicBrainz metadata lookup lp:1848887 #2328</li>
++          <li>Fix high DPI scaling of cover art #2247</li>
++          <li>Fix high DPI scaling of cue point labels on scrolling waveforms #2331</li>
++          <li>Fix high DPI scaling of sliders in Tango skin #2318</li>
++          <li>Fix sound dropping out during recording lp:1842679 #2265 #2305 #2308 #2309</li>
++          <li>Fix rare crash on application shutdown #2293</li>
++          <li>Workaround various rare bugs caused by database inconsistencies lp:1846971 #2321</li>
++          <li>Improve handling of corrupt FLAC files #2315</li>
++          <li>Don't immediately jump to loop start when loop_out is pressed in quantized mode lp:1837077 #2269</li>
++          <li>Preserve order of tracks when dragging and dropping from AutoDJ to playlist lp:1829601 #2237</li>
++          <li>Explicitly use X11 Qt platform plugin instead of Wayland in .desktop launcher lp:1850729 #2340</li>
++          <li>Pioneer DDJ-SX: fix delayed sending of MIDI messages with low audio buffer sizes #2326</li>
++          <li>Enable modplug support on Linux by default lp:1840537 #2244 #2272</li>
++          <li>Fix keyboard shortcut for View > Skin Preferences lp:1851993 #2358 #2372</li>
++          <li>Reloop Terminal Mix: Fix mapping of sampler buttons 5-8 lp:1846966 #2330</li>
++        </ul>
++      </description>
++    </release>
++    <release version="2.2.2" date="2019-08-14">
++      <url>https://github.com/mixxxdj/mixxx/releases/tag/release-2.2.2</url>
++    </release>
++  </releases>
+ </component>
