@@ -12,6 +12,7 @@ finish-args:
   - --filesystem=xdg-music:ro
   - --persist=.mixxx
   - --device=all
+  - --device=dri
   - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
   - --env=LADSPA_PATH=${FLATPAK_DEST}/lib/ladspa
   - --system-talk-name=org.freedesktop.UPower
