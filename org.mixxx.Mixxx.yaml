@@ -232,6 +232,8 @@ modules:
       - type: archive
         url: http://downloads.xiph.org/releases/libshout/libshout-2.4.3.tar.gz
         sha256: 0d8af55d1141bf90710bcd41a768c9cc5adb251502a0af1dd22c8da215d40dfe
+      - type: patch
+        path: patches/libshout/0ac7ed9e84c3871d4427acc1ce59dca5e4af21ef.patch
 
   - name: faad2
     config-opts:
