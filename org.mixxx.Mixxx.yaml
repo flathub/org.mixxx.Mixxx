@@ -14,11 +14,27 @@ finish-args:
   - --device=all
   - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
   - --env=QT_QPA_PLATFORM=xcb
-  - --env=LADSPA_PATH=/app/lib/ladspa
+  - --env=LADSPA_PATH=/app/extensions/LadspaPlugins/ladspa:/app/lib/ladspa
+  - --env=LV2_PATH=/app/extensions/Lv2Plugins/lv2
   - --system-talk-name=org.freedesktop.UPower
   - --env=ALSA_CONFIG_PATH=
 rename-desktop-file: mixxx.desktop
 rename-appdata-file: mixxx.appdata.xml
+add-extensions:
+  org.freedesktop.LinuxAudio.Lv2Plugins:
+     directory: extensions/Lv2Plugins
+     version: '19.08'
+     add-ld-path: lib
+     merge-dirs: lv2
+     subdirectories: true
+     no-autodownload: true
+  org.freedesktop.LinuxAudio.LadspaPlugins:
+    directory: extensions/LadspaPlugins
+    version: '19.08'
+    add-ld-path: lib
+    merge-dirs: ladspa
+    subdirectories: true
+    no-autodownload: true
 cleanup:
   - /include
   - /share/man
@@ -122,7 +138,7 @@ modules:
         sha256: 17c67f0aa6fd682e3c5d79bb1bab0f0d93f3d38d9c54424abb0852b66daa2072
       - type: patch
         path: patches/rubberband/improve-flexibility-with-autoconf.patch
-    modules: 
+    modules:
       - name: ladspa-sdk
         no-autogen: true
         subdir: src
@@ -143,10 +159,10 @@ modules:
   - libid3tag/libid3tag.json
 
   - name: libusb
-    config-opts: 
+    config-opts:
       - --disable-static
       - --disable-udev
-    sources: 
+    sources:
       - type: archive
         url: https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.tar.bz2
         sha256: db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d
@@ -164,7 +180,7 @@ modules:
       - type: archive
         url: 'https://download.drobilla.net/lilv-0.24.4.tar.bz2'
         sha256: c33b84b7a6e8e8fffb412fbcd6f69e59ca297ef3e29d829249b4ccc94f634438
-    modules: 
+    modules:
       - name: lv2
         buildsystem: simple
         build-commands:
@@ -181,7 +197,6 @@ modules:
         cleanup:
           - /bin
           - /share/lv2specgen
-
       - name: serd
         buildsystem: simple
         build-commands:
@@ -289,6 +304,8 @@ modules:
     post-install:
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
+      - install -d /app/extensions/LadspaPlugins
+      - install -d /app/extensions/Lv2Plugins
     sources:
       - type: archive
         url: https://github.com/mixxxdj/mixxx/archive/release-2.2.4.tar.gz
