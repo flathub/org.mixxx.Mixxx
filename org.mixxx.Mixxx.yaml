@@ -128,7 +128,7 @@ modules:
       - --disable-program
       - --enable-shared
       - --disable-static
-      - --with-ladspa
+      - --without-ladspa
       - --with-vamp
       - --without-jni
     sources:
@@ -137,23 +137,6 @@ modules:
         sha256: 17c67f0aa6fd682e3c5d79bb1bab0f0d93f3d38d9c54424abb0852b66daa2072
       - type: patch
         path: patches/rubberband/improve-flexibility-with-autoconf.patch
-    modules:
-      - name: ladspa-sdk
-        no-autogen: true
-        subdir: src
-        make-install-args:
-          - INSTALL_PLUGINS_DIR=${FLATPAK_DEST}/lib/ladspa
-          - INSTALL_INCLUDE_DIR=${FLATPAK_DEST}/include
-          - INSTALL_BINARY_DIR=${FLATPAK_DEST}/bin
-        sources:
-          - type: archive
-            url: https://www.ladspa.org/download/ladspa_sdk_1.15.tgz
-            sha256: 4229959b09d20c88c8c86f4aa76427843011705df22d9c28b38359fd1829fded
-          - type: patch
-            path: patches/ladspa-sdk/fix-memleak-in-plugin-scanning.patch
-            strip-components: 0
-        cleanup:
-          - /bin
 
   - libid3tag/libid3tag.json
 
