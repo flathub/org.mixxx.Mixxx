@@ -247,10 +247,12 @@ modules:
       - --disable-static
       - --with-pic
       - --disable-debug
+    build-options:
+      cxxflags: -Wno-narrowing
     sources:
-      - type: archive
-        url: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2
-        sha256: 0319b9a60b667cf10ee0ec7505eb7bdc0a2e21ca7a93db96ec5bd758e3428338
+      - type: git
+        url: https://github.com/TechSmith/mp4v2.git
+        commit: 745470e3e1df1c6c859475c17c1b53ab8751ec55
       - type: patch
         path: patches/mp4v2/libmp4v2-c++11.patch
         strip-components: 0
@@ -262,14 +264,6 @@ modules:
       - type: archive
         url: http://downloads.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz
         sha256: 77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad
-
-  - name: opusfile
-    config-opts:
-      - --disable-static
-    sources: 
-      - type: archive
-        url: https://github.com/xiph/opusfile/archive/v0.11.tar.gz
-        sha256: c2105cffc59545ffc0d2a65069e2f222a1712bbe579911ac0a3d3660edbbec57
 
   - name: mixxx
     buildsystem: simple
