@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.14'
+runtime-version: '5.15'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -22,14 +22,14 @@ rename-appdata-file: mixxx.appdata.xml
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
-     version: '19.08'
+     version: '20.08'
      add-ld-path: lib
      merge-dirs: ladspa;lv2
      subdirectories: true
      no-autodownload: true
   org.freedesktop.LinuxAudio.Lv2Plugins:
      directory: extensions/Lv2Plugins
-     version: '19.08'
+     version: '20.08'
      add-ld-path: lib
      merge-dirs: lv2
      subdirectories: true
