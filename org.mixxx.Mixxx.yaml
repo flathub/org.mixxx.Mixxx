@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.14'
+runtime-version: '5.15'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -22,14 +22,14 @@ rename-appdata-file: mixxx.appdata.xml
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
-     version: '19.08'
+     version: '20.08'
      add-ld-path: lib
      merge-dirs: ladspa;lv2
      subdirectories: true
      no-autodownload: true
   org.freedesktop.LinuxAudio.Lv2Plugins:
      directory: extensions/Lv2Plugins
-     version: '19.08'
+     version: '20.08'
      add-ld-path: lib
      merge-dirs: lv2
      subdirectories: true
@@ -133,8 +133,8 @@ modules:
       - --without-jni
     sources:
       - type: archive
-        url: https://bitbucket.org/breakfastquay/rubberband/get/v1.8.2.tar.gz
-        sha256: 17c67f0aa6fd682e3c5d79bb1bab0f0d93f3d38d9c54424abb0852b66daa2072
+        url: https://breakfastquay.com/files/releases/rubberband-1.8.2.tar.bz2
+        sha256: 86bed06b7115b64441d32ae53634fcc0539a50b9b648ef87443f936782f6c3ca
       - type: patch
         path: patches/rubberband/improve-flexibility-with-autoconf.patch
 
@@ -247,10 +247,12 @@ modules:
       - --disable-static
       - --with-pic
       - --disable-debug
+    build-options:
+      cxxflags: -Wno-narrowing
     sources:
-      - type: archive
-        url: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2
-        sha256: 0319b9a60b667cf10ee0ec7505eb7bdc0a2e21ca7a93db96ec5bd758e3428338
+      - type: git
+        url: https://github.com/TechSmith/mp4v2.git
+        commit: 745470e3e1df1c6c859475c17c1b53ab8751ec55
       - type: patch
         path: patches/mp4v2/libmp4v2-c++11.patch
         strip-components: 0
@@ -262,14 +264,6 @@ modules:
       - type: archive
         url: http://downloads.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz
         sha256: 77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad
-
-  - name: opusfile
-    config-opts:
-      - --disable-static
-    sources: 
-      - type: archive
-        url: https://github.com/xiph/opusfile/archive/v0.11.tar.gz
-        sha256: c2105cffc59545ffc0d2a65069e2f222a1712bbe579911ac0a3d3660edbbec57
 
   - name: mixxx
     buildsystem: simple
@@ -294,3 +288,5 @@ modules:
         sha256: 9372b43d5ec882845b4fe2350ef50dabb3f1e0cc029f182b0ed8aa4f4f3b2afa
       - type: patch
         path: patches/mixxx/appdata.patch
+      - type: patch
+        path: patches/mixxx/appdata-img.patch
