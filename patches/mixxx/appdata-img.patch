@@ -1,0 +1,25 @@
+From 46671f101553ef5f95f49835102713791370a4b5 Mon Sep 17 00:00:00 2001
+From: Rebecca Wallander <FakeShemp@users.noreply.github.com>
+Date: Fri, 4 Sep 2020 11:04:55 +0200
+Subject: [PATCH] Update mixxx.appdata.xml
+
+---
+ res/linux/mixxx.appdata.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/res/linux/mixxx.appdata.xml b/res/linux/mixxx.appdata.xml
+index 39bb082aeb..fe77de9a0c 100644
+--- a/res/linux/mixxx.appdata.xml
++++ b/res/linux/mixxx.appdata.xml
+@@ -38,7 +38,7 @@
+   </description>
+   <screenshots>
+     <screenshot type="default">
+-      <image>https://www.mixxx.org/static/images/press_art/mixxx_200_deere_skin.png</image>
++      <image>https://www.mixxx.org/static/images/2.3/screenshots/deere-3840x2160.png</image>
+       <caption>Mixxx with the default Deere skin</caption>
+     </screenshot>
+   </screenshots>
+-- 
+2.25.1
+
