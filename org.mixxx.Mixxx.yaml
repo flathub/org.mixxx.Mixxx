@@ -249,6 +249,10 @@ modules:
       - type: patch
         path: patches/mp4v2/libmp4v2-c++11.patch
         strip-components: 0
+      - type: shell
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} autoaux
+          - autoreconf -si
   
   - name: libmodplug
     config-opts:
@@ -282,3 +286,5 @@ modules:
         path: patches/mixxx/appdata.patch
       - type: patch
         path: patches/mixxx/appdata-img.patch
+      - type: patch
+        path: patches/mixxx/gl.patch
