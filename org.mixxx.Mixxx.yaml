@@ -17,6 +17,10 @@ finish-args:
   - --env=LV2_PATH=/app/extensions/Plugins/lv2
   - --system-talk-name=org.freedesktop.UPower
   - --env=ALSA_CONFIG_PATH=
+  # JACK support via pipewire
+  - --filesystem=xdg-run/pipewire-0
+  - --system-talk-name=org.freedesktop.RealtimeKit1
+
 rename-desktop-file: mixxx.desktop
 rename-appdata-file: mixxx.appdata.xml
 add-extensions:
@@ -38,6 +42,7 @@ modules:
   - shared-modules/libmad/libmad.json
   - shared-modules/python2.7/python-2.7.json
   - shared-modules/gudev/gudev.json
+  - shared-modules/linux-audio/jack2.json
 
   - name: protobuf
     config-opts:
@@ -62,13 +67,12 @@ modules:
       - '*'
 
   - name: portaudio
-    config-opts:
-      - --disable-static
-      - --without-oss
+    buildsystem: cmake-ninja
     sources:
-      - type: archive
-        url: http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
-        sha256: f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513
+      - type: git
+        url: https://github.com/PortAudio/portaudio.git
+        tag: v19.7.0
+        commit: 147dd722548358763a8b649b3e4b41dfffbcfbb6
 
   - name: portmidi
     buildsystem: cmake-ninja
