@@ -9,7 +9,7 @@ finish-args:
   - --socket=x11
   - --socket=pulseaudio
   - --share=network
-  - --filesystem=xdg-music:ro
+  - --filesystem=xdg-music
   - --persist=.mixxx
   - --device=all
   - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
