@@ -50,8 +50,8 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.9.1/protobuf-all-3.9.1.tar.gz
-        sha256: 3040a5b946d9df7aa89c0bf6981330bf92b7844fd90e71b61da0c721e421a421
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protobuf-all-3.17.3.tar.gz
+        sha256: 77ad26d3f65222fd96ccc18b055632b0bfedf295cb748b712a98ba1ac0b704b2
     cleanup:
       - /bin
 
