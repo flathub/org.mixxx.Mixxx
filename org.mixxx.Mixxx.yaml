@@ -204,34 +204,6 @@ modules:
       - type: git
         url: https://gitlab.freedesktop.org/wtaymans/fdk-aac-stripped.git
         commit: 585981a49f2186b0d2e47c64bf6b5abf539395f8
-
-  - name: faad2
-    config-opts:
-      - --disable-static
-      - --with-pic
-    sources:
-      - type: archive
-        url: http://downloads.sourceforge.net/project/faac/faad2-src/faad2-2.8.0/faad2-2.8.8.tar.gz
-        sha256: 985c3fadb9789d2815e50f4ff714511c79c2710ac27a4aaaf5c0c2662141426d
-  
-  - name: mp4v2
-    config-opts:
-      - --disable-static
-      - --with-pic
-      - --disable-debug
-    build-options:
-      cxxflags: -Wno-narrowing
-    sources:
-      - type: git
-        url: https://github.com/TechSmith/mp4v2.git
-        commit: 745470e3e1df1c6c859475c17c1b53ab8751ec55
-      - type: patch
-        path: patches/mp4v2/libmp4v2-c++11.patch
-        strip-components: 0
-      - type: shell
-        commands:
-          - cp -p /usr/share/automake-*/config.{sub,guess} autoaux
-          - autoreconf -si
   
   - name: libmodplug
     config-opts:
