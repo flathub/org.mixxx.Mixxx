@@ -218,6 +218,17 @@ modules:
         url: https://sourceforge.net/projects/modplug-xmms/files/libmodplug/0.8.9.0/libmodplug-0.8.9.0.tar.gz
         sha256: 457ca5a6c179656d66c01505c0d95fafaead4329b9dbaa0f997d00a3508ad9de
 
+  - name: QtKeychain
+    buildsystem: cmake-ninja
+    # QtKeychain installs to lib64 but all other libraries install to lib, so force
+    # QtKeychain to also install to lib.
+    config-opts:
+      - -DCMAKE_INSTALL_LIBDIR=lib
+    sources:
+      - type: archive
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.12.0.tar.gz
+        sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
+
   - name: mixxx
     buildsystem: simple
     build-commands:
