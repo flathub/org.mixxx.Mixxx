@@ -69,10 +69,9 @@ modules:
   - name: portaudio
     buildsystem: cmake-ninja
     sources:
-      - type: git
-        url: https://github.com/PortAudio/portaudio.git
-        tag: v19.7.0
-        commit: 147dd722548358763a8b649b3e4b41dfffbcfbb6
+      - type: archive
+        url: https://github.com/PortAudio/portaudio/archive/refs/tags/v19.7.0.tar.gz
+        sha256: 5af29ba58bbdbb7bbcefaaecc77ec8fc413f0db6f4c4e286c40c3e1b83174fa0
 
   - name: portmidi
     buildsystem: cmake-ninja
