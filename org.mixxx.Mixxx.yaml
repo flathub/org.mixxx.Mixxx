@@ -105,14 +105,6 @@ modules:
         url: https://github.com/acoustid/chromaprint/releases/download/v1.5.0/chromaprint-1.5.0.tar.gz
         sha256: 573a5400e635b3823fc2394cfa7a217fbb46e8e50ecebd4a61991451a8af766a
 
-  - name: vamp-plugin-sdk
-    sources:
-      - type: archive
-        url: https://github.com/c4dm/vamp-plugin-sdk/archive/vamp-plugin-sdk-v2.8.tar.gz
-        sha256: a64aedfabcaf1349d695b48b1457f90868fa8ecf2a1c49d1743f1943339d709c
-    cleanup:
-      - /bin
-
   - name: rubberband
     config-opts:
       - --disable-program
