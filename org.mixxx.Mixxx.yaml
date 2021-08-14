@@ -196,6 +196,15 @@ modules:
         url: https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
         sha256: 64b5ffbfccd5bdb15d925777979a4dbee1a957f9eaeb158dc76175267eddbdef
 
+  # Use fdk-aac fork without HE-AAC to avoid patent issues
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
+  - name: fdk-aac
+    buildsystem: cmake-ninja
+    sources:
+      - type: git
+        url: https://gitlab.freedesktop.org/wtaymans/fdk-aac-stripped.git
+        commit: 585981a49f2186b0d2e47c64bf6b5abf539395f8
+
   - name: faad2
     config-opts:
       - --disable-static
