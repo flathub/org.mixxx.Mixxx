@@ -229,6 +229,16 @@ modules:
         url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.12.0.tar.gz
         sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
 
+  - name: libkeyfinder
+    buildsystem: cmake-ninja
+    # BUILD_TESTING=ON tries to download catch2 during the build step
+    config-opts:
+      - -DBUILD_TESTING=OFF
+    sources:
+      - type: archive
+        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/v2.2.5.tar.gz
+        sha256: 516570e310f5bb5d87146fbefb129eb972dab3347987783554001e2cac26d9d6
+
   - name: mixxx
     buildsystem: simple
     build-commands:
