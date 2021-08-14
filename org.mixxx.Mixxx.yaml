@@ -106,19 +106,11 @@ modules:
         sha256: 573a5400e635b3823fc2394cfa7a217fbb46e8e50ecebd4a61991451a8af766a
 
   - name: rubberband
-    config-opts:
-      - --disable-program
-      - --enable-shared
-      - --disable-static
-      - --without-ladspa
-      - --with-vamp
-      - --without-jni
+    buildsystem: meson
     sources:
       - type: archive
-        url: https://breakfastquay.com/files/releases/rubberband-1.8.2.tar.bz2
-        sha256: 86bed06b7115b64441d32ae53634fcc0539a50b9b648ef87443f936782f6c3ca
-      - type: patch
-        path: patches/rubberband/improve-flexibility-with-autoconf.patch
+        url: https://breakfastquay.com/files/releases/rubberband-1.9.2.tar.bz2
+        sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
 
   - libid3tag/libid3tag.json
 
