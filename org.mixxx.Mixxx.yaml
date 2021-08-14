@@ -40,7 +40,6 @@ cleanup:
 modules:
   - shared-modules/glu/glu-9.json
   - shared-modules/libmad/libmad.json
-  - shared-modules/python2.7/python-2.7.json
   - shared-modules/gudev/gudev.json
   - shared-modules/libusb/libusb.json
   - shared-modules/linux-audio/jack2.json
