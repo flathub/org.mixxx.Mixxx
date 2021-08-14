@@ -7,22 +7,27 @@ finish-args:
   - --share=ipc
   - --socket=wayland
   - --socket=x11
+  # JACK support via PipeWire
+  - --filesystem=xdg-run/pipewire-0
+  # PulseAudio isn't actually helpful for Mixxx, but this allows access to ALSA
+  # devices too since https://github.com/flatpak/flatpak/pull/3663
   - --socket=pulseaudio
+  # Only used for MusicBrainz lookups
   - --share=network
   - --filesystem=xdg-music
   - --persist=.mixxx
   - --device=all
   - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
+  # Required due to use of legacy GLWidget which does not work with Wayland QPA
   - --env=QT_QPA_PLATFORM=xcb
   - --env=LV2_PATH=/app/extensions/Plugins/lv2
+  # Required for battery widget
   - --system-talk-name=org.freedesktop.UPower
   - --env=ALSA_CONFIG_PATH=
-  # JACK support via pipewire
-  - --filesystem=xdg-run/pipewire-0
   - --system-talk-name=org.freedesktop.RealtimeKit1
 
 rename-desktop-file: mixxx.desktop
-rename-appdata-file: mixxx.appdata.xml
+rename-appdata-file: mixxx.metainfo.xml
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
@@ -38,13 +43,13 @@ cleanup:
   - '*.la'
   - /lib/pkgconfig
 modules:
-  - shared-modules/glu/glu-9.json
   - shared-modules/libmad/libmad.json
-  - shared-modules/gudev/gudev.json
   - shared-modules/libusb/libusb.json
   - shared-modules/linux-audio/jack2.json
   - shared-modules/linux-audio/lv2.json
   - shared-modules/linux-audio/lilv.json
+  # Required by upower
+  - shared-modules/gudev/gudev.json
 
   - name: protobuf
     config-opts:
@@ -173,28 +178,33 @@ modules:
         sha256: 516570e310f5bb5d87146fbefb129eb972dab3347987783554001e2cac26d9d6
 
   - name: mixxx
-    buildsystem: simple
-    build-commands:
-      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} build=release ffmpeg=1 faad=1
-      - scons prefix=${FLATPAK_DEST} install
-      - install -Dm644 ${FLATPAK_DEST}/share/pixmaps/mixxx_icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+    buildsystem: cmake-ninja
+    # USE_SYMLINKS is only required for running the tests and fails with:
+    #
+    # [70/835] Symlinking test data to build directory...
+    # FAILED: CMakeFiles/mixxx-testdata
+    # cd /run/build/mixxx && /usr/bin/cmake -E create_symlink /run/build/mixxx/src/test /run/build/mixxx/src/test
+    # failed to create symbolic link '/run/build/mixxx/src/test' because existing path cannot be removed: Is a directory
+    #
+    # Unfortunately there is no way for a Flatpak to install udev rule files, so that needs to be installed manually
+    # by users who have HID or USB Bulk controllers.
+    config-opts:
+      - -DUSE_SYMLINKS=OFF
+      - -DINSTALL_USER_UDEV_RULES=OFF
+    post-install:
+      - mv ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/mixxx.svg
+        ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - icon_in="${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
         icon_out="${FLATPAK_ID}.png";
         for s in {32,64,128,256,512}; do
-        rsvg-convert "${icon_in}" -w "${s}" -h "${s}" -a -f png -o "${icon_out}";
-        install -p -Dm644 "${icon_out}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
+          rsvg-convert "${icon_in}" -w "${s}" -h "${s}" -a -f png -o "${icon_out}";
+          install -p -Dm644 "${icon_out}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
         done;
-    post-install:
-      - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
-      - install -d /app/extensions/Plugins
+      - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
     sources:
-      - type: archive
-        url: https://github.com/mixxxdj/mixxx/archive/release-2.2.4.tar.gz
-        sha256: 9372b43d5ec882845b4fe2350ef50dabb3f1e0cc029f182b0ed8aa4f4f3b2afa
-      - type: patch
-        path: patches/mixxx/appdata.patch
-      - type: patch
-        path: patches/mixxx/appdata-img.patch
-      - type: patch
-        path: patches/mixxx/gl.patch
+    - type: archive
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.0.tar.gz
+      sha256: ea0dad33bafa9f7a3523f19efa7c3163070fc8b946e93159907a2efb6037babe
+    - type: patch
+      path: metainfo.patch
