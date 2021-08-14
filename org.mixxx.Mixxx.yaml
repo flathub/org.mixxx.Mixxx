@@ -229,6 +229,13 @@ modules:
         url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.12.0.tar.gz
         sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
 
+  - name: libebur128
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://github.com/jiixyj/libebur128/archive/refs/tags/v1.2.6.tar.gz
+        sha256: baa7fc293a3d4651e244d8022ad03ab797ca3c2ad8442c43199afe8059faa613
+
   - name: libkeyfinder
     buildsystem: cmake-ninja
     # BUILD_TESTING=ON tries to download catch2 during the build step
