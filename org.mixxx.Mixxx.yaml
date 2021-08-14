@@ -112,7 +112,12 @@ modules:
         url: https://breakfastquay.com/files/releases/rubberband-1.9.2.tar.bz2
         sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
 
-  - libid3tag/libid3tag.json
+  - name: libid3tag
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.0.tar.gz
+        sha256: ce60a545acf0f30cb96b5f298b74bb65caa513a56299e0435fc8f09dadc5e6ed
 
   - name: libusb
     config-opts:
