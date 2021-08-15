@@ -7,22 +7,27 @@ finish-args:
   - --share=ipc
   - --socket=wayland
   - --socket=x11
+  # JACK support via PipeWire
+  - --filesystem=xdg-run/pipewire-0
+  # PulseAudio isn't actually helpful for Mixxx, but this allows access to ALSA
+  # devices too since https://github.com/flatpak/flatpak/pull/3663
   - --socket=pulseaudio
+  # Only used for MusicBrainz lookups
   - --share=network
   - --filesystem=xdg-music
   - --persist=.mixxx
   - --device=all
   - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
+  # Required due to use of legacy GLWidget which does not work with Wayland QPA
   - --env=QT_QPA_PLATFORM=xcb
   - --env=LV2_PATH=/app/extensions/Plugins/lv2
+  # Required for battery widget
   - --system-talk-name=org.freedesktop.UPower
   - --env=ALSA_CONFIG_PATH=
-  # JACK support via pipewire
-  - --filesystem=xdg-run/pipewire-0
   - --system-talk-name=org.freedesktop.RealtimeKit1
 
 rename-desktop-file: mixxx.desktop
-rename-appdata-file: mixxx.appdata.xml
+rename-appdata-file: mixxx.metainfo.xml
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
@@ -38,11 +43,13 @@ cleanup:
   - '*.la'
   - /lib/pkgconfig
 modules:
-  - shared-modules/glu/glu-9.json
   - shared-modules/libmad/libmad.json
-  - shared-modules/python2.7/python-2.7.json
-  - shared-modules/gudev/gudev.json
+  - shared-modules/libusb/libusb.json
   - shared-modules/linux-audio/jack2.json
+  - shared-modules/linux-audio/lv2.json
+  - shared-modules/linux-audio/lilv.json
+  # Required by upower
+  - shared-modules/gudev/gudev.json
 
   - name: protobuf
     config-opts:
@@ -50,42 +57,24 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.9.1/protobuf-all-3.9.1.tar.gz
-        sha256: 3040a5b946d9df7aa89c0bf6981330bf92b7844fd90e71b61da0c721e421a421
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protobuf-all-3.17.3.tar.gz
+        sha256: 77ad26d3f65222fd96ccc18b055632b0bfedf295cb748b712a98ba1ac0b704b2
     cleanup:
       - /bin
-
-  - name: scons
-    buildsystem: simple
-    build-commands:
-      - python3 setup.py install --prefix=${FLATPAK_DEST} --optimize=1
-    sources:
-      - type: archive
-        url: http://downloads.sourceforge.net/project/scons/scons/3.1.1/scons-3.1.1.tar.gz
-        sha256: 4cea417fdd7499a36f407923d03b4b7000b0f9e8fd7b31b316b9ce7eba9143a5
-    cleanup:
-      - '*'
 
   - name: portaudio
     buildsystem: cmake-ninja
     sources:
-      - type: git
-        url: https://github.com/PortAudio/portaudio.git
-        tag: v19.7.0
-        commit: 147dd722548358763a8b649b3e4b41dfffbcfbb6
+      - type: archive
+        url: https://github.com/PortAudio/portaudio/archive/refs/tags/v19.7.0.tar.gz
+        sha256: 5af29ba58bbdbb7bbcefaaecc77ec8fc413f0db6f4c4e286c40c3e1b83174fa0
 
   - name: portmidi
     buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/app/lib
-      - -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=/app/lib
-      - -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/app/bin
     sources:
       - type: archive
-        url: http://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip
-        sha256: 08e9a892bd80bdb1115213fb72dc29a7bf2ff108b378180586aa65f3cfd42e0f
-      - type: patch
-        path: patches/portmidi/portmidi-no-java.patch
+        url: https://github.com/mixxxdj/portmidi/archive/refs/tags/236.tar.gz
+        sha256: 5db9bcb78c728eb81218e905faa5f02eab1f851b3ae5e5b13312755b9b0db943
     cleanup:
       - /bin
 
@@ -97,8 +86,8 @@ modules:
       - -DWITH_ASF=ON
     sources:
       - type: archive
-        url: http://taglib.github.io/releases/taglib-1.11.1.tar.gz
-        sha256: b6d1a5a610aae6ff39d93de5efd0fdc787aa9e9dc1e7026fa4c961b26563526b
+        url: https://taglib.org/releases/taglib-1.12.tar.gz
+        sha256: 7fccd07669a523b07a15bd24c8da1bbb92206cb19e9366c3692af3d79253b703
     cleanup:
       - /bin
 
@@ -109,105 +98,29 @@ modules:
       - -DBUILD_SHARED_LIBS=ON
     sources:
       - type: archive
-        url: https://github.com/acoustid/chromaprint/releases/download/v1.4.3/chromaprint-1.4.3.tar.gz
-        sha256: ea18608b76fb88e0203b7d3e1833fb125ce9bb61efe22c6e169a50c52c457f82
-
-  - name: vamp-plugin-sdk
-    sources:
-      - type: archive
-        url: https://github.com/c4dm/vamp-plugin-sdk/archive/vamp-plugin-sdk-v2.8.tar.gz
-        sha256: a64aedfabcaf1349d695b48b1457f90868fa8ecf2a1c49d1743f1943339d709c
-    cleanup:
-      - /bin
+        url: https://github.com/acoustid/chromaprint/releases/download/v1.5.0/chromaprint-1.5.0.tar.gz
+        sha256: 573a5400e635b3823fc2394cfa7a217fbb46e8e50ecebd4a61991451a8af766a
 
   - name: rubberband
-    config-opts:
-      - --disable-program
-      - --enable-shared
-      - --disable-static
-      - --without-ladspa
-      - --with-vamp
-      - --without-jni
+    buildsystem: meson
     sources:
       - type: archive
-        url: https://breakfastquay.com/files/releases/rubberband-1.8.2.tar.bz2
-        sha256: 86bed06b7115b64441d32ae53634fcc0539a50b9b648ef87443f936782f6c3ca
-      - type: patch
-        path: patches/rubberband/improve-flexibility-with-autoconf.patch
+        url: https://breakfastquay.com/files/releases/rubberband-1.9.2.tar.bz2
+        sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
 
-  - libid3tag/libid3tag.json
-
-  - name: libusb
-    config-opts:
-      - --disable-static
-      - --disable-udev
+  - name: soundtouch
+    buildsystem: autotools
     sources:
       - type: archive
-        url: https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.tar.bz2
-        sha256: db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d
+        url: https://gitlab.com/soundtouch/soundtouch/-/archive/2.2/soundtouch-2.2.tar.gz
+        sha256: 525478c745a51dadaf7adb8e5386ec1f903d47196fab5947dc37414344684560
 
-  - name: lilv
-    buildsystem: simple
-    build-commands:
-      - python3 waf configure --prefix=${FLATPAK_DEST}
-                              --default-lv2-path=${FLATPAK_DEST}/lib/lv2
-                              --no-bash-completion
-                              --no-utils
-      - python3 waf build -j ${FLATPAK_BUILDER_N_JOBS}
-      - python3 waf install
+  - name: libid3tag
+    buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: 'https://download.drobilla.net/lilv-0.24.4.tar.bz2'
-        sha256: c33b84b7a6e8e8fffb412fbcd6f69e59ca297ef3e29d829249b4ccc94f634438
-    modules:
-      - name: lv2
-        buildsystem: simple
-        build-commands:
-          - python3 waf configure --prefix=${FLATPAK_DEST}
-                                  --lv2dir=${FLATPAK_DEST}/lib/lv2
-                                  --no-plugins
-          - python3 waf build -j ${FLATPAK_BUILDER_N_JOBS}
-          - python3 waf install
-        sources:
-          - type: git
-            url: 'https://github.com/drobilla/lv2.git'
-            tag: v1.16.0
-            commit: 0fa4d4847eb6d5bb0f58da889933c94c37ecb730
-        cleanup:
-          - /bin
-          - /share/lv2specgen
-      - name: serd
-        buildsystem: simple
-        build-commands:
-          - python3 waf configure --prefix=${FLATPAK_DEST} --no-utils
-          - python3 waf build -j $FLATPAK_BUILDER_N_JOBS
-          - python3 waf install
-        sources:
-          - type: archive
-            url: 'https://download.drobilla.net/serd-0.30.0.tar.bz2'
-            sha256: 6efb0efa5c2155e6bbac941cddeeabb7ed26d70a57d24178894ff169d8f6cefb
-
-      - name: sord
-        buildsystem: simple
-        build-commands:
-          - python3 waf configure --prefix=${FLATPAK_DEST} --no-utils
-          - python3 waf build -j $FLATPAK_BUILDER_N_JOBS
-          - python3 waf install
-        sources:
-          - type: archive
-            url: 'https://download.drobilla.net/sord-0.16.2.tar.bz2'
-            sha256: 09f51174dd8f3efbd95f44f0bb0b165f08e066e052d40095de59de787987da8d
-
-      - name: sratom
-        buildsystem: simple
-        build-commands:
-          - python3 waf configure --prefix=${FLATPAK_DEST}
-          - python3 waf build -j $FLATPAK_BUILDER_N_JOBS
-          - python3 waf install
-        sources:
-          - type: archive
-            url: 'https://download.drobilla.net/sratom-0.6.2.tar.bz2'
-            sha256: 0a514a55d6b6cb7b5d6f32d1dcb78a1e6e54537fa22fce533e4ef6adf240e853
+        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.0.tar.gz
+        sha256: ce60a545acf0f30cb96b5f298b74bb65caa513a56299e0435fc8f09dadc5e6ed
 
   - name: upower
     config-opts: 
@@ -219,76 +132,79 @@ modules:
         url: https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
         sha256: 64b5ffbfccd5bdb15d925777979a4dbee1a957f9eaeb158dc76175267eddbdef
 
-  - name: libshout
-    config-opts:
-      - --disable-static
-      - --with-pic
-    sources:
-      - type: archive
-        url: http://downloads.xiph.org/releases/libshout/libshout-2.4.3.tar.gz
-        sha256: 0d8af55d1141bf90710bcd41a768c9cc5adb251502a0af1dd22c8da215d40dfe
-      - type: patch
-        path: patches/libshout/0ac7ed9e84c3871d4427acc1ce59dca5e4af21ef.patch
-
-  - name: faad2
-    config-opts:
-      - --disable-static
-      - --with-pic
-    sources:
-      - type: archive
-        url: http://downloads.sourceforge.net/project/faac/faad2-src/faad2-2.8.0/faad2-2.8.8.tar.gz
-        sha256: 985c3fadb9789d2815e50f4ff714511c79c2710ac27a4aaaf5c0c2662141426d
-  
-  - name: mp4v2
-    config-opts:
-      - --disable-static
-      - --with-pic
-      - --disable-debug
-    build-options:
-      cxxflags: -Wno-narrowing
+  # Use fdk-aac fork without HE-AAC to avoid patent issues
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
+  - name: fdk-aac
+    buildsystem: cmake-ninja
     sources:
       - type: git
-        url: https://github.com/TechSmith/mp4v2.git
-        commit: 745470e3e1df1c6c859475c17c1b53ab8751ec55
-      - type: patch
-        path: patches/mp4v2/libmp4v2-c++11.patch
-        strip-components: 0
-      - type: shell
-        commands:
-          - cp -p /usr/share/automake-*/config.{sub,guess} autoaux
-          - autoreconf -si
+        url: https://gitlab.freedesktop.org/wtaymans/fdk-aac-stripped.git
+        commit: 585981a49f2186b0d2e47c64bf6b5abf539395f8
   
   - name: libmodplug
     config-opts:
       - --with-pic
     sources:
       - type: archive
-        url: http://downloads.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz
-        sha256: 77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad
+        url: https://sourceforge.net/projects/modplug-xmms/files/libmodplug/0.8.9.0/libmodplug-0.8.9.0.tar.gz
+        sha256: 457ca5a6c179656d66c01505c0d95fafaead4329b9dbaa0f997d00a3508ad9de
+
+  - name: QtKeychain
+    buildsystem: cmake-ninja
+    # QtKeychain installs to lib64 but all other libraries install to lib, so force
+    # QtKeychain to also install to lib.
+    config-opts:
+      - -DCMAKE_INSTALL_LIBDIR=lib
+    sources:
+      - type: archive
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.12.0.tar.gz
+        sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
+
+  - name: libebur128
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://github.com/jiixyj/libebur128/archive/refs/tags/v1.2.6.tar.gz
+        sha256: baa7fc293a3d4651e244d8022ad03ab797ca3c2ad8442c43199afe8059faa613
+
+  - name: libkeyfinder
+    buildsystem: cmake-ninja
+    # BUILD_TESTING=ON tries to download catch2 during the build step
+    config-opts:
+      - -DBUILD_TESTING=OFF
+    sources:
+      - type: archive
+        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/v2.2.5.tar.gz
+        sha256: 516570e310f5bb5d87146fbefb129eb972dab3347987783554001e2cac26d9d6
 
   - name: mixxx
-    buildsystem: simple
-    build-commands:
-      - scons prefix=${FLATPAK_DEST} -j ${FLATPAK_BUILDER_N_JOBS} build=release ffmpeg=1 faad=1
-      - scons prefix=${FLATPAK_DEST} install
-      - install -Dm644 ${FLATPAK_DEST}/share/pixmaps/mixxx_icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+    buildsystem: cmake-ninja
+    # USE_SYMLINKS is only required for running the tests and fails with:
+    #
+    # [70/835] Symlinking test data to build directory...
+    # FAILED: CMakeFiles/mixxx-testdata
+    # cd /run/build/mixxx && /usr/bin/cmake -E create_symlink /run/build/mixxx/src/test /run/build/mixxx/src/test
+    # failed to create symbolic link '/run/build/mixxx/src/test' because existing path cannot be removed: Is a directory
+    #
+    # Unfortunately there is no way for a Flatpak to install udev rule files, so that needs to be installed manually
+    # by users who have HID or USB Bulk controllers.
+    config-opts:
+      - -DUSE_SYMLINKS=OFF
+      - -DINSTALL_USER_UDEV_RULES=OFF
+    post-install:
+      - mv ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/mixxx.svg
+        ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - icon_in="${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
         icon_out="${FLATPAK_ID}.png";
         for s in {32,64,128,256,512}; do
-        rsvg-convert "${icon_in}" -w "${s}" -h "${s}" -a -f png -o "${icon_out}";
-        install -p -Dm644 "${icon_out}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
+          rsvg-convert "${icon_in}" -w "${s}" -h "${s}" -a -f png -o "${icon_out}";
+          install -p -Dm644 "${icon_out}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
         done;
-    post-install:
-      - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
-      - install -d /app/extensions/Plugins
+      - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
     sources:
-      - type: archive
-        url: https://github.com/mixxxdj/mixxx/archive/release-2.2.4.tar.gz
-        sha256: 9372b43d5ec882845b4fe2350ef50dabb3f1e0cc029f182b0ed8aa4f4f3b2afa
-      - type: patch
-        path: patches/mixxx/appdata.patch
-      - type: patch
-        path: patches/mixxx/appdata-img.patch
-      - type: patch
-        path: patches/mixxx/gl.patch
+    - type: archive
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.0.tar.gz
+      sha256: ea0dad33bafa9f7a3523f19efa7c3163070fc8b946e93159907a2efb6037babe
+    - type: patch
+      path: metainfo.patch

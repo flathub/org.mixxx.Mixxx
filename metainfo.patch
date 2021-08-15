@@ -1,0 +1,27 @@
+Author: Be <be@mixxx.org>
+Date:   Sun Aug 15 07:47:57 2021 -0500
+
+    add missing XML elements to metainfo
+
+diff --git a/res/linux/mixxx.metainfo.xml b/res/linux/mixxx.metainfo.xml
+index 6b7636c463..2d658eaae1 100644
+--- a/res/linux/mixxx.metainfo.xml
++++ b/res/linux/mixxx.metainfo.xml
+@@ -4,9 +4,16 @@
+   <id>org.mixxx.Mixxx</id>
+   <launchable type="desktop-id">mixxx.desktop</launchable>
+   <metadata_license>CC-BY-SA-3.0</metadata_license>
+-  <project_license>GPL-2.0</project_license>
++  <project_license>GPL-2.0-or-later</project_license>
+   <name>Mixxx DJ Software</name>
+   <summary>Everything you need to perform live DJ mixes</summary>
++  <!-- Must be explicitly specified as not requiring any content rating. -->
++  <content_rating type="oars-1.1"/>
++  <releases>
++    <release version="2.3.0" date="2021-06-28">
++      <url>https://mixxx.org/news/2021-06-28-mixxx-2-3-0-released/</url>
++    </release>
++  </releases>
+   <description>
+     <p>
+       Mixxx is free DJ software that gives you everything you need to perform
