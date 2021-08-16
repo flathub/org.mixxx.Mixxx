@@ -202,6 +202,7 @@ modules:
         done;
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
+      - install -d /app/extensions/Plugins
     sources:
     - type: archive
       url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.0.tar.gz
