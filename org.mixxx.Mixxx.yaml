@@ -109,11 +109,11 @@ modules:
         sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
 
   - name: soundtouch
-    buildsystem: autotools
+    buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://gitlab.com/soundtouch/soundtouch/-/archive/2.2/soundtouch-2.2.tar.gz
-        sha256: 525478c745a51dadaf7adb8e5386ec1f903d47196fab5947dc37414344684560
+        url: https://gitlab.com/soundtouch/soundtouch/-/archive/2.3.1/soundtouch-2.3.1.tar.gz
+        sha256: 6900996607258496ce126924a19fe9d598af9d892cf3f33d1e4daaa9b42ae0b1
 
   - name: libid3tag
     buildsystem: cmake-ninja
