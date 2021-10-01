@@ -26,8 +26,7 @@ finish-args:
   - --env=ALSA_CONFIG_PATH=
   - --system-talk-name=org.freedesktop.RealtimeKit1
 
-rename-desktop-file: mixxx.desktop
-rename-appdata-file: mixxx.metainfo.xml
+rename-icon: mixxx
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
@@ -109,11 +108,11 @@ modules:
         sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
 
   - name: soundtouch
-    buildsystem: autotools
+    buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://gitlab.com/soundtouch/soundtouch/-/archive/2.2/soundtouch-2.2.tar.gz
-        sha256: 525478c745a51dadaf7adb8e5386ec1f903d47196fab5947dc37414344684560
+        url: https://gitlab.com/soundtouch/soundtouch/-/archive/2.3.1/soundtouch-2.3.1.tar.gz
+        sha256: 6900996607258496ce126924a19fe9d598af9d892cf3f33d1e4daaa9b42ae0b1
 
   - name: libid3tag
     buildsystem: cmake-ninja
@@ -192,20 +191,12 @@ modules:
       - -DUSE_SYMLINKS=OFF
       - -DINSTALL_USER_UDEV_RULES=OFF
     post-install:
-      - mv ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/mixxx.svg
-        ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
-      - icon_in="${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
-        icon_out="${FLATPAK_ID}.png";
-        for s in {32,64,128,256,512}; do
-          rsvg-convert "${icon_in}" -w "${s}" -h "${s}" -a -f png -o "${icon_out}";
-          install -p -Dm644 "${icon_out}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
-        done;
-      - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/mixxx.desktop
-      - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/mixxx.desktop
+      - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
+      - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.0.tar.gz
-      sha256: ea0dad33bafa9f7a3523f19efa7c3163070fc8b946e93159907a2efb6037babe
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.1.tar.gz
+      sha256: 35cff9acece5f651af472c11952ba59d5bc22e36225e6cb65c931afe0bc25b71
     - type: patch
       path: metainfo.patch
