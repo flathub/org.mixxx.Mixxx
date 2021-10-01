@@ -56,8 +56,8 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protobuf-all-3.17.3.tar.gz
-        sha256: 77ad26d3f65222fd96ccc18b055632b0bfedf295cb748b712a98ba1ac0b704b2
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.18.0/protobuf-cpp-3.18.0.tar.gz
+        sha256: 7308590dbb95e77066b99c5674eed855c8257e70658d2af586f4a81ff0eea2b1
     cleanup:
       - /bin
 
