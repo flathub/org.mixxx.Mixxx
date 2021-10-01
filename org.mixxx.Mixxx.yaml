@@ -122,7 +122,7 @@ modules:
         sha256: ce60a545acf0f30cb96b5f298b74bb65caa513a56299e0435fc8f09dadc5e6ed
 
   - name: upower
-    config-opts: 
+    config-opts:
       - --disable-static
       - --with-pic
       - --with-systemdsystemunitdir=/app/lib/systemd/system
@@ -139,7 +139,7 @@ modules:
       - type: git
         url: https://gitlab.freedesktop.org/wtaymans/fdk-aac-stripped.git
         commit: 585981a49f2186b0d2e47c64bf6b5abf539395f8
-  
+
   - name: libmodplug
     config-opts:
       - --with-pic
