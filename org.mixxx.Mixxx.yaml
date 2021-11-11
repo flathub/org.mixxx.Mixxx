@@ -49,6 +49,8 @@ modules:
   - shared-modules/linux-audio/lilv.json
   # Required by upower
   - shared-modules/gudev/gudev.json
+  # Required by qtkeychain
+  - shared-modules/libsecret/libsecret.json
 
   - name: protobuf
     config-opts:
@@ -150,14 +152,10 @@ modules:
 
   - name: QtKeychain
     buildsystem: cmake-ninja
-    # QtKeychain installs to lib64 but all other libraries install to lib, so force
-    # QtKeychain to also install to lib.
-    config-opts:
-      - -DCMAKE_INSTALL_LIBDIR=lib
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.12.0.tar.gz
-        sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.13.1.tar.gz
+        sha256: dc84aea039b81f2613c7845d2ac88bad1cf3a06646ec8af0f7276372bb010c11
 
   - name: libebur128
     buildsystem: cmake-ninja
