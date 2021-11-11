@@ -49,6 +49,8 @@ modules:
   - shared-modules/linux-audio/lilv.json
   # Required by upower
   - shared-modules/gudev/gudev.json
+  # Required by qtkeychain
+  - shared-modules/libsecret/libsecret.json
 
   - name: protobuf
     config-opts:
@@ -111,8 +113,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://gitlab.com/soundtouch/soundtouch/-/archive/2.3.1/soundtouch-2.3.1.tar.gz
-        sha256: 6900996607258496ce126924a19fe9d598af9d892cf3f33d1e4daaa9b42ae0b1
+        url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.1.tar.gz
+        sha256: 42633774f372d8cb0a33333a0ea3b30f357c548626526ac9f6ce018c94042692
 
   - name: libid3tag
     buildsystem: cmake-ninja
@@ -150,14 +152,10 @@ modules:
 
   - name: QtKeychain
     buildsystem: cmake-ninja
-    # QtKeychain installs to lib64 but all other libraries install to lib, so force
-    # QtKeychain to also install to lib.
-    config-opts:
-      - -DCMAKE_INSTALL_LIBDIR=lib
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.12.0.tar.gz
-        sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.13.1.tar.gz
+        sha256: dc84aea039b81f2613c7845d2ac88bad1cf3a06646ec8af0f7276372bb010c11
 
   - name: libebur128
     buildsystem: cmake-ninja
