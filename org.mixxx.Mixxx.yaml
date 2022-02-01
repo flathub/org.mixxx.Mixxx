@@ -113,8 +113,8 @@ modules:
     buildsystem: meson
     sources:
       - type: archive
-        url: https://breakfastquay.com/files/releases/rubberband-1.9.2.tar.bz2
-        sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
+        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v2.0.2.tar.gz
+        sha256: 1372a0d52915ef07aa3cffc00a8b17996c736f328efa0f6504d231fa6428ed4b
 
   - name: soundtouch
     buildsystem: cmake-ninja
