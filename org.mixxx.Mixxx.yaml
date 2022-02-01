@@ -79,6 +79,13 @@ modules:
     cleanup:
       - /bin
 
+  - name: hidapi
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://github.com/libusb/hidapi/archive/refs/tags/hidapi-0.11.2.tar.gz
+        sha256: bc4ac0f32a6b21ef96258a7554c116152e2272dacdec1e4620fc44abeea50c27
+
   - name: taglib
     buildsystem: cmake-ninja
     config-opts:
