@@ -1,111 +1,23 @@
 diff --git a/res/linux/org.mixxx.Mixxx.metainfo.xml b/res/linux/org.mixxx.Mixxx.metainfo.xml
-index 7121381724..63b004b12a 100644
+index 7564218812..5c4474d6a3 100644
 --- a/res/linux/org.mixxx.Mixxx.metainfo.xml
 +++ b/res/linux/org.mixxx.Mixxx.metainfo.xml
-@@ -6,6 +6,7 @@
-   <project_license>GPL-2.0</project_license>
-   <name>Mixxx DJ Software</name>
-   <summary>Everything you need to perform live DJ mixes</summary>
-+  <content_rating type="oars-1.1"/>
-   <description>
-     <p>
-       Mixxx is free DJ software that gives you everything you need to perform
-@@ -96,7 +97,8 @@
+@@ -98,7 +98,7 @@
    Do not edit it manually.
    -->
    <releases>
--    <release version="2.3.1" type="development">
-+    <release version="2.3.1" type="stable" date="2021-09-30">
-+      <url>https://mixxx.org/news/2021-09-30-mixxx-2-3-1-released/</url>
+-    <release version="2.3.2" type="development">
++    <release version="2.3.2" type="stable" date="2022-02-01" timestamp="1643587200">
        <description>
   <ul>
    <li>
-@@ -258,13 +260,13 @@
-  <ul>
+@@ -447,8 +447,7 @@
+   </li>
    <li>
-    It is no longer necessary to manually copy the udev rule file in packaging scripts. Now pkg-config is used to determine the udevdir used to install the rules file in the CMake install step when CMAKE_INSTALL_PREFIX is
--   <code>
-+   
-     /
--   </code>
-+   
-    or
--   <code>
-+   
-     /usr
--   </code>
-+   
-    .
-    #4126
-   </li>
-@@ -361,11 +363,6 @@
-    #2673
-    #3885
-   </li>
--  <li>
--   Note: Mixxx does not yet support multiple loops per track. We are
+    Note: Mixxx does not yet support multiple loops per track. We are
 -   working on this for Mixxx 2.4
 -   . In Mixxx 2.3, if you import a track with multiple loops from Serato, Mixxx will use the first loop cue as the single loop Mixxx currently supports. The imported loops are still stored in Mixxx's database and are treated as hotcues in Mixxx 2.3. If you do not delete these hotcues, they will be usable as loops in Mixxx 2.4. Serato keeps loops and hotcues in separate lists, but Mixxx does not, so loops from Serato are imported starting as hotcue 9.
--  </li>
++   working on this for Mixxx 2.4.
+   </li>
    <li>
     Import cue points, track colors, and playlists from Rekordbox USB drives
-    #2119
-@@ -551,9 +548,9 @@
-  <ul>
-   <li>
-    Add support for searching for empty fields (for example
--   <code>
-+   
-     crate:""
--   </code>
-+   
-    )
-    lp:1788086
-   </li>
-@@ -792,26 +789,26 @@
-  <ul>
-   <li>
-    Add CMake build system with
--   <code>
-+   
-     ccache
--   </code>
-+   
-    and
--   <code>
-+   
-     sccache
--   </code>
-+   
-    support for faster compilation times and remove SCons
-    #2280
-    #3618
-   </li>
-   <li>
-    Make Mixxx compile even though
--   <code>
-+   
-     QT_NO_OPENGL
--   </code>
-+   
-    or
--   <code>
-+   
-     QT_OPENGL_ES_2
--   </code>
-+   
-    is defined (fixes build on Raspberry Pi)
-    lp:1863440
-    #2504
-@@ -843,9 +840,9 @@
-   </li>
-   <li>
-    Derive Mixxx version from
--   <code>
-+   
-     git describe
--   </code>
-+   
-    #3824
-    #3841
-    #3848

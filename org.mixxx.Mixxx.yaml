@@ -58,8 +58,8 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.18.0/protobuf-cpp-3.18.0.tar.gz
-        sha256: 7308590dbb95e77066b99c5674eed855c8257e70658d2af586f4a81ff0eea2b1
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protobuf-cpp-3.19.4.tar.gz
+        sha256: 89ac31a93832e204db6d73b1e80f39f142d5747b290f17340adce5be5b122f94
     cleanup:
       - /bin
 
@@ -74,10 +74,17 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/portmidi/archive/refs/tags/236.tar.gz
-        sha256: 5db9bcb78c728eb81218e905faa5f02eab1f851b3ae5e5b13312755b9b0db943
+        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.2.tar.gz
+        sha256: 60606c47a465d7d2b45b3c3016d52dba0d8d9d6ae3874e12f963182e36eb3244
     cleanup:
       - /bin
+
+  - name: hidapi
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://github.com/libusb/hidapi/archive/refs/tags/hidapi-0.11.2.tar.gz
+        sha256: bc4ac0f32a6b21ef96258a7554c116152e2272dacdec1e4620fc44abeea50c27
 
   - name: taglib
     buildsystem: cmake-ninja
@@ -99,15 +106,15 @@ modules:
       - -DBUILD_SHARED_LIBS=ON
     sources:
       - type: archive
-        url: https://github.com/acoustid/chromaprint/releases/download/v1.5.0/chromaprint-1.5.0.tar.gz
-        sha256: 573a5400e635b3823fc2394cfa7a217fbb46e8e50ecebd4a61991451a8af766a
+        url: https://github.com/acoustid/chromaprint/releases/download/v1.5.1/chromaprint-1.5.1.tar.gz
+        sha256: a1aad8fa3b8b18b78d3755b3767faff9abb67242e01b478ec9a64e190f335e1c
 
   - name: rubberband
     buildsystem: meson
     sources:
       - type: archive
-        url: https://breakfastquay.com/files/releases/rubberband-1.9.2.tar.bz2
-        sha256: b3cff5968517141fcf9e1ef6b5a1fdb06a5511f148000609216cf182ff4ab612
+        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v2.0.2.tar.gz
+        sha256: 1372a0d52915ef07aa3cffc00a8b17996c736f328efa0f6504d231fa6428ed4b
 
   - name: soundtouch
     buildsystem: cmake-ninja
@@ -154,8 +161,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.13.1.tar.gz
-        sha256: dc84aea039b81f2613c7845d2ac88bad1cf3a06646ec8af0f7276372bb010c11
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.13.2.tar.gz
+        sha256: 20beeb32de7c4eb0af9039b21e18370faf847ac8697ab3045906076afbc4caa5
 
   - name: libebur128
     buildsystem: cmake-ninja
@@ -171,8 +178,8 @@ modules:
       - -DBUILD_TESTING=OFF
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/v2.2.5.tar.gz
-        sha256: 516570e310f5bb5d87146fbefb129eb972dab3347987783554001e2cac26d9d6
+        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/v2.2.6.tar.gz
+        sha256: 15dfcc744fddd01f0e33473091bc34892a9889b779dc991fc1096166bbbfee0d
 
   - name: mixxx
     buildsystem: cmake-ninja
@@ -194,7 +201,7 @@ modules:
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.1.tar.gz
-      sha256: 35cff9acece5f651af472c11952ba59d5bc22e36225e6cb65c931afe0bc25b71
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.2.tar.gz
+      sha256: b6a0ed80bfbda5b65014e75ffd132f8a7474b260ef18d1e4e2c203e21bb28695
     - type: patch
       path: metainfo.patch
