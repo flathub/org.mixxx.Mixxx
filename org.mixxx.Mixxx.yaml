@@ -74,8 +74,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.2.tar.gz
-        sha256: 60606c47a465d7d2b45b3c3016d52dba0d8d9d6ae3874e12f963182e36eb3244
+        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.3.tar.gz
+        sha256: 934f80e1b09762664d995e7ab5a9932033bc70639e8ceabead817183a54c60d0
     cleanup:
       - /bin
 
