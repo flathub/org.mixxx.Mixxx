@@ -178,8 +178,8 @@ modules:
       - -DBUILD_TESTING=OFF
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/v2.2.6.tar.gz
-        sha256: 15dfcc744fddd01f0e33473091bc34892a9889b779dc991fc1096166bbbfee0d
+        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/2.2.7.tar.gz
+        sha256: 57dbd89c90b451e449d4652a29f078a90b847fefb29a242ab3c886f39d5d6998
 
   - name: mixxx
     buildsystem: cmake-ninja
