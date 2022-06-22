@@ -127,8 +127,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.0.tar.gz
-        sha256: ce60a545acf0f30cb96b5f298b74bb65caa513a56299e0435fc8f09dadc5e6ed
+        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.2.tar.gz
+        sha256: 96198b7c8803bcda44e299615e1929a85bd5a5da02e67ebc442735bc50018190
 
   - name: upower
     config-opts:
