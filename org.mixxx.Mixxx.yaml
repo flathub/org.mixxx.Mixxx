@@ -58,8 +58,8 @@ modules:
       - --with-pic
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protobuf-cpp-3.19.4.tar.gz
-        sha256: 89ac31a93832e204db6d73b1e80f39f142d5747b290f17340adce5be5b122f94
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v21.1/protobuf-cpp-3.21.1.tar.gz
+        sha256: 9ccabf07bd087bca3bb37067e04bf1d7377f0d60311cf3d2aa88e7af4c49a177
     cleanup:
       - /bin
 
@@ -83,8 +83,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/libusb/hidapi/archive/refs/tags/hidapi-0.11.2.tar.gz
-        sha256: bc4ac0f32a6b21ef96258a7554c116152e2272dacdec1e4620fc44abeea50c27
+        url: https://github.com/libusb/hidapi/archive/refs/tags/hidapi-0.12.0.tar.gz
+        sha256: 28ec1451f0527ad40c1a4c92547966ffef96813528c8b184a665f03ecbb508bc
 
   - name: taglib
     buildsystem: cmake-ninja
@@ -127,8 +127,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.0.tar.gz
-        sha256: ce60a545acf0f30cb96b5f298b74bb65caa513a56299e0435fc8f09dadc5e6ed
+        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.2.tar.gz
+        sha256: 96198b7c8803bcda44e299615e1929a85bd5a5da02e67ebc442735bc50018190
 
   - name: upower
     config-opts:
@@ -178,8 +178,8 @@ modules:
       - -DBUILD_TESTING=OFF
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/v2.2.6.tar.gz
-        sha256: 15dfcc744fddd01f0e33473091bc34892a9889b779dc991fc1096166bbbfee0d
+        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/2.2.7.tar.gz
+        sha256: 57dbd89c90b451e449d4652a29f078a90b847fefb29a242ab3c886f39d5d6998
 
   - name: mixxx
     buildsystem: cmake-ninja
@@ -201,7 +201,7 @@ modules:
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.2.tar.gz
-      sha256: b6a0ed80bfbda5b65014e75ffd132f8a7474b260ef18d1e4e2c203e21bb28695
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.3.tar.gz
+      sha256: 8e3a5a545175982336bb07c81a3839897a007c43689b93641242db662f6beb9c
     - type: patch
       path: metainfo.patch
