@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.15-21.08'
+runtime-version: '5.15-22.08'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -30,7 +30,7 @@ rename-icon: mixxx
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
-     version: '21.08'
+     version: '22.08'
      add-ld-path: lib
      merge-dirs: lv2
      subdirectories: true
@@ -44,7 +44,6 @@ cleanup:
 modules:
   - shared-modules/libmad/libmad.json
   - shared-modules/libusb/libusb.json
-  - shared-modules/linux-audio/jack2.json
   - shared-modules/linux-audio/lv2.json
   - shared-modules/linux-audio/lilv.json
   # Required by upower
@@ -127,8 +126,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://github.com/tenacityteam/libid3tag/archive/refs/tags/0.16.2.tar.gz
-        sha256: 96198b7c8803bcda44e299615e1929a85bd5a5da02e67ebc442735bc50018190
+        url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.2.tar.gz
+        sha256: 02721346d554c4b4aa3966b134152be65eb4df1fb9322d2d019133238d2ba017
 
   - name: upower
     config-opts:
@@ -195,6 +194,8 @@ modules:
     config-opts:
       - -DUSE_SYMLINKS=OFF
       - -DINSTALL_USER_UDEV_RULES=OFF
+    build-options:
+      cxxflags: "-Wno-error=restrict"
     post-install:
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
