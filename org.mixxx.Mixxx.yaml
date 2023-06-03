@@ -207,8 +207,8 @@ modules:
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.3.tar.gz
-      sha256: 8e3a5a545175982336bb07c81a3839897a007c43689b93641242db662f6beb9c
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.5.tar.gz
+      sha256: 798586411cc75d343fead7132b18654050b86d0d4a51fdd2abc2d25b9af7840f
     - type: patch
       path: metainfo.patch
     - type: script
