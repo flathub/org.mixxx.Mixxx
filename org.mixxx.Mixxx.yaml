@@ -37,9 +37,12 @@ add-extensions:
      no-autodownload: true
 cleanup:
   - /include
+  - /share/gir-1.0
   - /share/man
   - '*.a'
   - '*.la'
+  - /lib/cmake
+  - /lib/girepository-1.0
   - /lib/pkgconfig
 modules:
   - shared-modules/libmad/libmad.json
@@ -199,6 +202,8 @@ modules:
     post-install:
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
+      - mv ${FLATPAK_DEST}/bin/mixxx ${FLATPAK_DEST}/bin/mixxx.bin
+      - install -Dm755 mixxx.sh ${FLATPAK_DEST}/bin/mixxx
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
@@ -206,3 +211,8 @@ modules:
       sha256: 8e3a5a545175982336bb07c81a3839897a007c43689b93641242db662f6beb9c
     - type: patch
       path: metainfo.patch
+    - type: script
+      dest-filename: mixxx.sh
+      commands:
+        - LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2
+        - exec mixxx.bin $@
