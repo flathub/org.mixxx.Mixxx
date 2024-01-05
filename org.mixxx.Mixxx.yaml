@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.15-22.08'
+runtime-version: '5.15-23.08'
 sdk: org.kde.Sdk
 command: mixxx
 finish-args:
@@ -30,7 +30,7 @@ rename-icon: mixxx
 add-extensions:
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
-     version: '22.08'
+     version: '23.08'
      add-ld-path: lib
      merge-dirs: lv2
      subdirectories: true
@@ -207,8 +207,8 @@ modules:
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.5.tar.gz
-      sha256: 798586411cc75d343fead7132b18654050b86d0d4a51fdd2abc2d25b9af7840f
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.6.tar.gz
+      sha256: 0030d07c1506ccc13daa63d851921381b5bf838e9407cd666557d951ac093c52
     - type: patch
       path: metainfo.patch
     - type: script
