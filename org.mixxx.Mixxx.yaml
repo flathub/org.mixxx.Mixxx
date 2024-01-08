@@ -130,7 +130,7 @@ modules:
     sources:
       - type: archive
         url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.2.tar.gz
-        sha256: 02721346d554c4b4aa3966b134152be65eb4df1fb9322d2d019133238d2ba017
+        sha256: 78b593395b03788cf9c6475b88ce0cbdf0476aaec5cf6f5339f04c2ffcae0704
 
   - name: upower
     config-opts:
