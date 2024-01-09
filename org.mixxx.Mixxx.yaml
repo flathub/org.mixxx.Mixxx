@@ -3,31 +3,45 @@ runtime: org.kde.Platform
 runtime-version: '5.15-23.08'
 sdk: org.kde.Sdk
 command: mixxx
+rename-icon: mixxx
+
+# Tag and mark as beta until 2.4 final release
+tags:
+  - beta
+desktop-file-name-suffix: ' (beta)'
+
 finish-args:
-  - --share=ipc
-  - --socket=wayland
-  - --socket=x11
-  # JACK support via PipeWire
-  - --filesystem=xdg-run/pipewire-0
-  # PulseAudio isn't actually helpful for Mixxx, but this allows access to ALSA
-  # devices too since https://github.com/flatpak/flatpak/pull/3663
-  - --socket=pulseaudio
-  # Only used for MusicBrainz lookups
-  - --share=network
-  - --filesystem=xdg-music
-  - --persist=.mixxx
+  # Required for DJ controller support
   - --device=all
-  - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
-  # Required due to use of legacy GLWidget which does not work with Wayland QPA
-  - --env=QT_QPA_PLATFORM=xcb
-  - --env=LV2_PATH=/app/extensions/Plugins/lv2
-  # Required for battery widget
+
+  # Wayland is used by default
+  - --socket=wayland
+  - --socket=fallback-x11
+
+  # Used by X11 and MusicBrainz metadata lookups
+  - --share=ipc
+  - --share=network
+
+  # Permit PipeWire and user music directory access
+  - --filesystem=xdg-run/pipewire-0
+  - --filesystem=xdg-music
+
+  # PulseAudio is needed for ALSA device access
+  - --socket=pulseaudio
+
+  # Talk to UPower and RTKit services on the session bus
   - --system-talk-name=org.freedesktop.UPower
-  - --env=ALSA_CONFIG_PATH=
   - --system-talk-name=org.freedesktop.RealtimeKit1
 
-rename-icon: mixxx
+  # Define LV2 plugin location and ignore ALSA configuration
+  - --env=LV2_PATH=/app/extensions/Plugins/lv2
+  - --env=ALSA_CONFIG_PATH=
+
+  # App data storage in org.mixxx.Mixxx/.mixxx
+  - --persist=.mixxx
+
 add-extensions:
+  # Linux audio plugins extension
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
      version: '23.08'
@@ -35,6 +49,7 @@ add-extensions:
      merge-dirs: lv2
      subdirectories: true
      no-autodownload: true
+
 cleanup:
   - /include
   - /share/gir-1.0
@@ -44,161 +59,275 @@ cleanup:
   - /lib/cmake
   - /lib/girepository-1.0
   - /lib/pkgconfig
+
 modules:
+  # MPEG audio decoder
   - shared-modules/libmad/libmad.json
+
+  # USB device access library
   - shared-modules/libusb/libusb.json
+
+  # LV2 audio plugin support
   - shared-modules/linux-audio/lv2.json
   - shared-modules/linux-audio/lilv.json
-  # Required by upower
+
+  # Required by UPower
   - shared-modules/gudev/gudev.json
-  # Required by qtkeychain
+
+  # Required by QtKeychain
   - shared-modules/libsecret/libsecret.json
 
-  - name: protobuf
+  # Google test framework
+  - name: googletest
+    buildsystem: cmake-ninja
     config-opts:
-      - --with-zlib
-      - --with-pic
+      # Use RelWithDebInfo build type for all CMake modules
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v21.1/protobuf-cpp-3.21.1.tar.gz
-        sha256: 9ccabf07bd087bca3bb37067e04bf1d7377f0d60311cf3d2aa88e7af4c49a177
+        url: https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz
+        sha256: 8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7
+
+  # Google benchmark library
+  - name: benchmark
+    buildsystem: cmake-ninja
+    config-opts:
+      # Disable tests and documentation
+      - -DBENCHMARK_ENABLE_GTEST_TESTS=OFF
+      - -DBENCHMARK_INSTALL_DOCS=OFF
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/google/benchmark/archive/refs/tags/v1.8.3.tar.gz
+        sha256: 6bc180a57d23d4d9515519f92b0c83d61b05b5bab188961f36ac7b06b0d9e9ce
+
+  # Microsoft GSL library
+  - name: gsl
+    buildsystem: cmake-ninja
+    config-opts:
+      # Disable tests
+      - -DGSL_TEST=OFF
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.0.0.tar.gz
+        sha256: f0e32cb10654fea91ad56bde89170d78cfbf4363ee0b01d8f097de2ba49f6ce9
+    cleanup:
+      - /share/cmake
+
+  # Abseil C++ library
+  - name: abseil-cpp
+    buildsystem: cmake-ninja
+    config-opts:
+      # Use and propagate CMake C++ standard meta features
+      - -DABSL_PROPAGATE_CXX_STD=ON
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/abseil/abseil-cpp/archive/refs/tags/20230802.1.tar.gz
+        sha256: 987ce98f02eefbaf930d6e38ab16aa05737234d7afbab2d5c4ea7adbe50c28ed
+
+  # Google protocol buffers
+  - name: protobuf
+    buildsystem: cmake-ninja
+    config-opts:
+      # Disable tests and use our external Abseil build
+      - -Dprotobuf_BUILD_TESTS=off
+      - -Dprotobuf_ABSL_PROVIDER=package
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protobuf-25.2.tar.gz
+        sha256: 8ff511a64fc46ee792d3fe49a5a1bcad6f7dc50dfbba5a28b0e5b979c17f9871
     cleanup:
       - /bin
 
+  # Portable audio I/O library
   - name: portaudio
     buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
         url: https://github.com/PortAudio/portaudio/archive/refs/tags/v19.7.0.tar.gz
         sha256: 5af29ba58bbdbb7bbcefaaecc77ec8fc413f0db6f4c4e286c40c3e1b83174fa0
 
+  # Cross-platform MIDI I/O
   - name: portmidi
-    buildsystem: cmake-ninja
-    sources:
-      - type: archive
-        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.3.tar.gz
-        sha256: 934f80e1b09762664d995e7ab5a9932033bc70639e8ceabead817183a54c60d0
-    cleanup:
-      - /bin
-
-  - name: hidapi
-    buildsystem: cmake-ninja
-    sources:
-      - type: archive
-        url: https://github.com/libusb/hidapi/archive/refs/tags/hidapi-0.12.0.tar.gz
-        sha256: 28ec1451f0527ad40c1a4c92547966ffef96813528c8b184a665f03ecbb508bc
-
-  - name: taglib
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DBUILD_SHARED_LIBS=ON
-      - -DWITH_MP4=ON
-      - -DWITH_ASF=ON
-    sources:
-      - type: archive
-        url: https://taglib.org/releases/taglib-1.12.tar.gz
-        sha256: 7fccd07669a523b07a15bd24c8da1bbb92206cb19e9366c3692af3d79253b703
-    cleanup:
-      - /bin
-
-  - name: chromaprint
     buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.4.tar.gz
+        sha256: 64893e823ae146cabd3ad7f9a9a9c5332746abe7847c557b99b2577afa8a607c
+    cleanup:
+      - /bin
+
+  # USB and Bluetooth HID library
+  - name: hidapi
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/libusb/hidapi/archive/refs/tags/hidapi-0.14.0.tar.gz
+        sha256: a5714234abe6e1f53647dd8cba7d69f65f71c558b7896ed218864ffcf405bcbd
+
+  # Audio metadata library
+  - name: taglib
+    buildsystem: cmake-ninja
+    config-opts:
+      # Enable shared libraries and disable tests
       - -DBUILD_SHARED_LIBS=ON
+      - -DBUILD_TESTING=OFF
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://taglib.org/releases/taglib-1.13.1.tar.gz
+        sha256: c8da2b10f1bfec2cd7dbfcd33f4a2338db0765d851a50583d410bacf055cfd0b
+    cleanup:
+      - /bin
+
+  # Audio fingerprinting library
+  - name: chromaprint
+    buildsystem: cmake-ninja
+    config-opts:
+      # Disable command line tools and tests
+      - -DBUILD_TOOLS=OFF
+      - -DBUILD_TESTS=OFF
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
         url: https://github.com/acoustid/chromaprint/releases/download/v1.5.1/chromaprint-1.5.1.tar.gz
         sha256: a1aad8fa3b8b18b78d3755b3767faff9abb67242e01b478ec9a64e190f335e1c
 
+  # Audio time stretching and pitch shifting library
   - name: rubberband
     buildsystem: meson
+    config-opts:
+      # Disable tests, command line tools and audio plugins
+      - -Dtests=disabled
+      - -Dcmdline=disabled
+      - -Dladspa=disabled
+      - -Dlv2=disabled
     sources:
       - type: archive
-        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v2.0.2.tar.gz
-        sha256: 1372a0d52915ef07aa3cffc00a8b17996c736f328efa0f6504d231fa6428ed4b
+        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v3.3.0.tar.gz
+        sha256: 2bb837fe00932442ca90e185af8a468f7591df0c002b4a9e27a1bced1563ac84
 
+  # Audio processing Library
   - name: soundtouch
     buildsystem: cmake-ninja
+    config-opts:
+      # Disable soundstretch command line utility
+      - -DSOUNDSTRETCH=OFF
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.1.tar.gz
-        sha256: 42633774f372d8cb0a33333a0ea3b30f357c548626526ac9f6ce018c94042692
+        url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.2.tar.gz
+        sha256: 714c8626001bb3ef291a9af9eadc0f7b382a0b23506efebc516b63b170b4da56
 
+  # ID3 tag library
   - name: libid3tag
     buildsystem: cmake-ninja
-    sources:
-      - type: archive
-        url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.2.tar.gz
-        sha256: 78b593395b03788cf9c6475b88ce0cbdf0476aaec5cf6f5339f04c2ffcae0704
-
-  - name: upower
     config-opts:
-      - --disable-static
-      - --with-pic
-      - --with-systemdsystemunitdir=/app/lib/systemd/system
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
-        sha256: 64b5ffbfccd5bdb15d925777979a4dbee1a957f9eaeb158dc76175267eddbdef
+        url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.3.tar.gz
+        sha256: 3b65150454818e3e46d113891e0e0c335516315c51f80d87565f6124b892bff4
 
-  # Use fdk-aac fork without HE-AAC to avoid patent issues
-  # https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
-  - name: fdk-aac
+  # Power management interface
+  - name: upower
+    buildsystem: meson
+    config-opts:
+      # Disable documentation, prevent systemd dependency and set udev rules location
+      - -Dgtk-doc=false
+      - -Dsystemdsystemunitdir=no
+      - -Dudevrulesdir=/app/etc/udev/rules.d
+      - -Dudevhwdbdir=/app/etc/udev/hwdb.d
+    sources:
+      - type: archive
+        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.2/upower-v1.90.2.tar.gz
+        sha256: 5c4e736648f0c89d2368fbbe1e6fc0598a1565c4b435bade1d65e890259fb759
+    cleanup:
+      - /bin
+      - /etc
+      - /libexec
+      - /var
+      - /share/dbus-1
+      - /share/installed-tests
+
+  # FDK-AAC audio library with patented HE-AAC support removed
+  - name: fdk-aac-stripped
     buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: git
         url: https://gitlab.freedesktop.org/wtaymans/fdk-aac-stripped.git
         commit: 585981a49f2186b0d2e47c64bf6b5abf539395f8
 
+  # Mod-like music format library
   - name: libmodplug
-    config-opts:
-      - --with-pic
+    buildsystem: autotools
     sources:
       - type: archive
         url: https://sourceforge.net/projects/modplug-xmms/files/libmodplug/0.8.9.0/libmodplug-0.8.9.0.tar.gz
         sha256: 457ca5a6c179656d66c01505c0d95fafaead4329b9dbaa0f997d00a3508ad9de
 
-  - name: QtKeychain
+  # Secure password storage API
+  - name: qtkeychain
     buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/v0.13.2.tar.gz
-        sha256: 20beeb32de7c4eb0af9039b21e18370faf847ac8697ab3045906076afbc4caa5
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.14.2.tar.gz
+        sha256: cf2e972b783ba66334a79a30f6b3a1ea794a1dc574d6c3bebae5ffd2f0399571
+    cleanup:
+      - /mkspecs
 
+  # Loudness normalization library
   - name: libebur128
     buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
         url: https://github.com/jiixyj/libebur128/archive/refs/tags/v1.2.6.tar.gz
         sha256: baa7fc293a3d4651e244d8022ad03ab797ca3c2ad8442c43199afe8059faa613
 
+  # Musical key estimation library
   - name: libkeyfinder
     buildsystem: cmake-ninja
-    # BUILD_TESTING=ON tries to download catch2 during the build step
     config-opts:
+      # Disable tests
       - -DBUILD_TESTING=OFF
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/2.2.7.tar.gz
-        sha256: 57dbd89c90b451e449d4652a29f078a90b847fefb29a242ab3c886f39d5d6998
+        url: https://github.com/mixxxdj/libkeyfinder/archive/refs/tags/2.2.8.tar.gz
+        sha256: a54fc6c5ff435bb4b447f175bc97f9081fb5abf0edd5d125e6f5215c8fff4d11
 
+  # DJ record database access library
+  - name: libdjinterop
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: archive
+        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.20.1.tar.gz
+        sha256: 69bdbd0e68f12858b79795a76a6023962f93f819ca36ea56a9d4680901865d13
+
+  # Mixxx 2.4 (beta)
   - name: mixxx
     buildsystem: cmake-ninja
-    # USE_SYMLINKS is only required for running the tests and fails with:
-    #
-    # [70/835] Symlinking test data to build directory...
-    # FAILED: CMakeFiles/mixxx-testdata
-    # cd /run/build/mixxx && /usr/bin/cmake -E create_symlink /run/build/mixxx/src/test /run/build/mixxx/src/test
-    # failed to create symbolic link '/run/build/mixxx/src/test' because existing path cannot be removed: Is a directory
-    #
-    # Unfortunately there is no way for a Flatpak to install udev rule files, so that needs to be installed manually
-    # by users who have HID or USB Bulk controllers.
     config-opts:
-      - -DUSE_SYMLINKS=OFF
+      # Disable udev rules install
       - -DINSTALL_USER_UDEV_RULES=OFF
-    build-options:
-      cxxflags: "-Wno-error=restrict"
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     post-install:
       - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
@@ -206,11 +335,9 @@ modules:
       - install -Dm755 mixxx.sh ${FLATPAK_DEST}/bin/mixxx
       - install -d /app/extensions/Plugins
     sources:
-    - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.6.tar.gz
-      sha256: 0030d07c1506ccc13daa63d851921381b5bf838e9407cd666557d951ac093c52
-    - type: patch
-      path: metainfo.patch
+    - type: git
+      url: https://github.com/mixxxdj/mixxx.git
+      commit: 0047b7ad536d1f23897abf982e44e5ec135c4b6e
     - type: script
       dest-filename: mixxx.sh
       commands:
