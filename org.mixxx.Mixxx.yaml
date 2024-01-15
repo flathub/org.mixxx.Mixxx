@@ -5,11 +5,6 @@ sdk: org.kde.Sdk
 command: mixxx
 rename-icon: mixxx
 
-# Tag and mark as beta until 2.4 final release
-tags:
-  - beta
-desktop-file-name-suffix: ' (beta)'
-
 finish-args:
   # Required for DJ controller support
   - --device=all
@@ -33,9 +28,11 @@ finish-args:
   - --system-talk-name=org.freedesktop.UPower
   - --system-talk-name=org.freedesktop.RealtimeKit1
 
-  # Define LV2 plugin location and ignore ALSA configuration
-  - --env=LV2_PATH=/app/extensions/Plugins/lv2
+  # Ignore ALSA configuration
   - --env=ALSA_CONFIG_PATH=
+
+  # Migrate host DConf settings
+  - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
 
   # App data storage in org.mixxx.Mixxx/.mixxx
   - --persist=.mixxx
