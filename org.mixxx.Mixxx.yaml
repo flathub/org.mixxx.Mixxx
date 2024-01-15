@@ -336,6 +336,8 @@ modules:
     - type: git
       url: https://github.com/mixxxdj/mixxx.git
       commit: 0047b7ad536d1f23897abf982e44e5ec135c4b6e
+    - type: patch
+      path: mixxx-metainfo.patch
     - type: script
       dest-filename: mixxx.sh
       commands:
