@@ -220,9 +220,10 @@ modules:
   - name: soundtouch
     buildsystem: cmake-ninja
     config-opts:
-      # Disable soundstretch command line utility
+      # Disable soundstretch utility and Neon SIMD instructions
       - -DSOUNDSTRETCH=OFF
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DNEON=OFF
     sources:
       - type: archive
         url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.2.tar.gz
