@@ -31,14 +31,14 @@ finish-args:
   # Ignore ALSA configuration
   - --env=ALSA_CONFIG_PATH=
 
-  # Migrate host DConf settings
+  # Migrate host dconf settings
   - --metadata=X-DConf=migrate-path=/org/mixxx/Mixxx
 
   # App data storage in org.mixxx.Mixxx/.mixxx
   - --persist=.mixxx
 
 add-extensions:
-  # Linux audio plugins extension
+  # Linux audio plugins base extension
   org.freedesktop.LinuxAudio.Plugins:
      directory: extensions/Plugins
      version: '23.08'
@@ -121,8 +121,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/abseil/abseil-cpp/archive/refs/tags/20230802.1.tar.gz
-        sha256: 987ce98f02eefbaf930d6e38ab16aa05737234d7afbab2d5c4ea7adbe50c28ed
+        url: https://github.com/abseil/abseil-cpp/releases/download/20240116.0/abseil-cpp-20240116.0.tar.gz
+        sha256: 338420448b140f0dfd1a1ea3c3ce71b3bc172071f24f4d9a57d59b45037da440
 
   # Google protocol buffers
   - name: protobuf
@@ -203,7 +203,7 @@ modules:
   - name: rubberband
     buildsystem: meson
     config-opts:
-      # Disable tests, command line tools and audio plugins
+      # Disable tests, command line tools and non-functional audio plugins
       - -Dtests=disabled
       - -Dcmdline=disabled
       - -Dladspa=disabled
@@ -217,7 +217,7 @@ modules:
   - name: soundtouch
     buildsystem: cmake-ninja
     config-opts:
-      # Disable soundstretch utility and Neon SIMD instructions
+      # Disable soundstretch utility and disable non-working -mfpu=neon flag
       - -DSOUNDSTRETCH=OFF
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - -DNEON=OFF
@@ -234,9 +234,9 @@ modules:
     sources:
       - type: archive
         url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.3.tar.gz
-        sha256: 3b65150454818e3e46d113891e0e0c335516315c51f80d87565f6124b892bff4
+        sha256: 0561009778513a95d91dac33cee8418d6622f710450a7cb56a74636d53b588cb
 
-  # Power management interface
+  # Power management interface, used for battery level indicator
   - name: upower
     buildsystem: meson
     config-opts:
@@ -258,6 +258,7 @@ modules:
       - /share/installed-tests
 
   # FDK-AAC audio library with patented HE-AAC support removed
+  # https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
   - name: fdk-aac-stripped
     buildsystem: cmake-ninja
     config-opts:
@@ -319,7 +320,7 @@ modules:
         url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.20.1.tar.gz
         sha256: 69bdbd0e68f12858b79795a76a6023962f93f819ca36ea56a9d4680901865d13
 
-  # Mixxx 2.4 (beta)
+  # Mixxx 2.4.0
   - name: mixxx
     buildsystem: cmake-ninja
     config-opts:
@@ -327,17 +328,17 @@ modules:
       - -DINSTALL_USER_UDEV_RULES=OFF
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     post-install:
-      - desktop-file-edit --set-key="Icon" --set-value=${FLATPAK_ID} ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
       - desktop-file-edit --set-key="Exec" --set-value="mixxx %U" ${FLATPAK_DEST}/share/applications/org.mixxx.Mixxx.desktop
       - mv ${FLATPAK_DEST}/bin/mixxx ${FLATPAK_DEST}/bin/mixxx.bin
       - install -Dm755 mixxx.sh ${FLATPAK_DEST}/bin/mixxx
+      - install -Dm644 org.mixxx.Mixxx.metainfo.xml /app/share/metainfo/org.mixxx.Mixxx.metainfo.xml
       - install -d /app/extensions/Plugins
     sources:
     - type: git
       url: https://github.com/mixxxdj/mixxx.git
-      commit: 0047b7ad536d1f23897abf982e44e5ec135c4b6e
-    - type: patch
-      path: mixxx-metainfo.patch
+      commit: 81066fd4804ac50fe96545fccf0f12074e30322c
+    - type: file
+      path: org.mixxx.Mixxx.metainfo.xml
     - type: script
       dest-filename: mixxx.sh
       commands:
