@@ -224,7 +224,7 @@ modules:
     sources:
       - type: archive
         url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.2.tar.gz
-        sha256: 714c8626001bb3ef291a9af9eadc0f7b382a0b23506efebc516b63b170b4da56
+        sha256: ed714f84a3e748de87b24f385ec69d3bdc51ca47b7f4710d2048b84b2761e7ff
 
   # ID3 tag library
   - name: libid3tag
@@ -336,7 +336,7 @@ modules:
     sources:
     - type: git
       url: https://github.com/mixxxdj/mixxx.git
-      commit: 81066fd4804ac50fe96545fccf0f12074e30322c
+      commit: 5e00122dd5da4fa0d6f9a0f95291a6ea68743c80
     - type: file
       path: org.mixxx.Mixxx.metainfo.xml
     - type: script
