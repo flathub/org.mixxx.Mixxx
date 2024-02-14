@@ -213,7 +213,7 @@ modules:
         url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v3.3.0.tar.gz
         sha256: 2bb837fe00932442ca90e185af8a468f7591df0c002b4a9e27a1bced1563ac84
 
-  # Audio processing Library
+  # Audio time stretching and pitch shifting library
   - name: soundtouch
     buildsystem: cmake-ninja
     config-opts:
@@ -343,4 +343,4 @@ modules:
       dest-filename: mixxx.sh
       commands:
         - export LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2
-        - exec mixxx.bin $@
+        - exec mixxx.bin "$@"
