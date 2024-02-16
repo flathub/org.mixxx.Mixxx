@@ -40,58 +40,47 @@
   <url type="vcs-browser">https://github.com/mixxxdj/mixxx</url>
   <screenshots>
     <screenshot type="default">
-      <image>https://mixxx.org/theme/images/2.3/screenshots/latenight-palemoon-3840x2160.png</image>
-      <caption>Mixxx with the default LateNight PaleMoon skin</caption>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Latenight_2decks_basic.png</image>
+      <caption>Mixxx with LateNight PaleMoon skin (default) and two decks</caption>
     </screenshot>
     <screenshot>
-      <image>https://mixxx.org/theme/images/2.3/screenshots/latenight-classic-3840x2160.png</image>
-      <caption>Mixxx with the LateNight Classic skin</caption>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Deere_2decks_basic.png</image>
+      <caption>Mixxx with Deere skin and two decks</caption>
     </screenshot>
     <screenshot>
-      <image>https://mixxx.org/theme/images/2.3/screenshots/deere-3840x2160.png</image>
-      <caption>Mixxx with the Deere skin</caption>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Tango_2decks_basic.png</image>
+      <caption>Mixxx with Tango skin and two decks</caption>
     </screenshot>
     <screenshot>
-      <image>https://mixxx.org/theme/images/2.3/screenshots/shade-classic-3840x2160.png</image>
-      <caption>Mixxx with the Shade Classic skin</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://mixxx.org/theme/images/2.3/screenshots/shade-dark-3840x2160.png</image>
-      <caption>Mixxx with the Shade Dark skin</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://mixxx.org/theme/images/2.3/screenshots/shade-summersunset-3840x2160.png</image>
-      <caption>Mixxx with the Shade Summer Sunset skin</caption>
-    </screenshot>
-    <screenshot>
-      <image>https://mixxx.org/theme/images/2.3/screenshots/tango-3840x2160.png</image>
-      <caption>Mixxx with the Tango skin</caption>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Shade_basic.png</image>
+      <caption>Mixxx with Shade skin</caption>
     </screenshot>
   </screenshots>
   <releases>
-    <release version="2.4.0" date="2024-02-12">
+    <release version="2.4.0" date="2024-02-16">
     <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4/CHANGELOG.md</url>
       <description>
         <p>
-          Mixxx 2.4.0 is a major release with many new features and changes
-          under the hood. It includes the following highlights:
+          Mixxx 2.4.0 is a major release with many new features and important
+          changes under the hood. It includes the following highlights:
         </p>
         <ul>
           <li>Support for exporting crates, playlists and the library to
           Engine DJ OS devices.</li>
-          <li>Added support for saved loops. If you already have tracks with
-          saved loops from Serato DJ, Mixxx will automatically read them from
-          the track metadata.</li>
-          <li>Introducing effect chains, a set of effects with parameters that
-          can be saved and reloaded.</li>
+          <li>Added support for saved loops, which can be assigned to any hot
+          cue slot.</li>
+          <li>Introducing effect chains, a set of effects which can be saved and
+          reloaded with all their parameters and individual meta knob
+          mappings.</li>
           <li>Several new features and actions in the track menu.</li>
-          <li>Support for choosing a sync leader by clicking the new crown
+          <li>Support for selecting the sync leader by clicking the new crown
           symbol button next to the sync button.</li>
           <li>Added support for three different key shift algorithms.</li>
-          <li>Major rework of the waveform rendering code. Solves long lasting
+          <li>The waveform display has been rewritten, solving some longstanding
           performance issues, especially on macOS.</li>
-          <li>Native macOS ARM builds for M1/M2 Apple silicon.</li>
-          <li>ES6 based controller mapping system HID backend rework.</li>
+          <li>Native support for macOS ARM systems ("Apple Silicon").</li>
+          <li>Modernized JavaScript ES7 based controller mapping system and HID
+          backend rework.</li>
         </ul>
       </description>
     </release>
