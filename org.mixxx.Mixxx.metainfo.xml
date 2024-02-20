@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.mixxx.Mixxx</id>
+  <metadata_license>CC-BY-SA-4.0</metadata_license>
+  <project_license>GPL-2.0</project_license>
+  <name>Mixxx</name>
+  <summary>Perform live DJ mixes</summary>
+  <developer_name>The Mixxx Development Team</developer_name>
+  <description>
+    <p>
+      Mixxx is a highly customizable, cross-platform DJ application that
+      integrates all the tools DJs need to perform creative live mixes.
+    </p>
+    <ul>
+      <li>Blend songs together using automatic BPM matching and remix on the fly
+      with samples, loops and hot cues.</li>
+      <li>Never miss a beat with the scratchable waveform displays, volume
+      normalization and accurate tempo and key detection.</li>
+      <li>Spice up your mixes using high quality effects and flexible processing
+      chains.</li>
+      <li>Keep your music library perfectly organized with crates and
+      playlists.</li>
+      <li>Take a break by enabling Auto DJ with automatic crossfading.</li>
+    </ul>
+    <p>
+      Mixxx works with many popular DJ controllers and supports vinyl emulation
+      with Serato, Traktor, and Mixvibes timecodes. Whether you're an
+      experienced turntablist or just getting started, Mixxx has you covered.
+    </p>
+  </description>
+  <launchable type="desktop-id">org.mixxx.Mixxx.desktop</launchable>
+  <content_rating type="oars-1.1" />
+  <url type="bugtracker">https://github.com/mixxxdj/mixxx/issues</url>
+  <url type="contact">https://mixxx.zulipchat.com</url>
+  <url type="contribute">https://github.com/mixxxdj/mixxx/blob/main/CONTRIBUTING.md</url>
+  <url type="donation">https://opencollective.com/mixxx</url>
+  <url type="help">https://mixxx.org/support</url>
+  <url type="homepage">https://mixxx.org</url>
+  <url type="translate">https://explore.transifex.com/mixxx-dj-software</url>
+  <url type="vcs-browser">https://github.com/mixxxdj/mixxx</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Latenight_2decks_basic.png</image>
+      <caption>Mixxx with LateNight PaleMoon skin (default) and two decks</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Deere_2decks_basic.png</image>
+      <caption>Mixxx with Deere skin and two decks</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Tango_2decks_basic.png</image>
+      <caption>Mixxx with Tango skin and two decks</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://mixxx.org/theme/images/2.4/screenshots/Shade_basic.png</image>
+      <caption>Mixxx with Shade skin</caption>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="2.4.0" date="2024-02-16">
+    <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4/CHANGELOG.md</url>
+      <description>
+        <p>
+          Mixxx 2.4.0 is a major release with many new features and important
+          changes under the hood. It includes the following highlights:
+        </p>
+        <ul>
+          <li>Support for exporting crates, playlists and the library to
+          Engine DJ OS devices.</li>
+          <li>Added support for saved loops, which can be assigned to any hot
+          cue slot.</li>
+          <li>Introducing effect chains, a set of effects which can be saved and
+          reloaded with all their parameters and individual meta knob
+          mappings.</li>
+          <li>Several new features and actions in the track menu.</li>
+          <li>Support for selecting the sync leader by clicking the new crown
+          symbol button next to the sync button.</li>
+          <li>Added support for three different key shift algorithms.</li>
+          <li>The waveform display has been rewritten, solving some longstanding
+          performance issues, especially on macOS.</li>
+          <li>Native support for macOS ARM systems ("Apple Silicon").</li>
+          <li>Modernized JavaScript ES7 based controller mapping system and HID
+          backend rework.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>
