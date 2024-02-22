@@ -9,6 +9,11 @@ finish-args:
   # Required for DJ controller support
   - --device=all
 
+  # Hack to make removable drives available in the library GUI
+  # https://github.com/flatpak/flatpak/issues/2713#issuecomment-1958510347
+  - --filesystem=/media
+  - --filesystem=/run/media
+
   # Wayland is used by default
   - --socket=wayland
   - --socket=fallback-x11
