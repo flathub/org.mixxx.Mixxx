@@ -126,8 +126,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/abseil/abseil-cpp/releases/download/20240116.0/abseil-cpp-20240116.0.tar.gz
-        sha256: 338420448b140f0dfd1a1ea3c3ce71b3bc172071f24f4d9a57d59b45037da440
+        url: https://github.com/abseil/abseil-cpp/releases/download/20240116.2/abseil-cpp-20240116.2.tar.gz
+        sha256: 733726b8c3a6d39a4120d7e45ea8b41a434cdacde401cba500f14236c49b39dc
 
   # Google protocol buffers
   - name: protobuf
@@ -139,8 +139,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protobuf-25.2.tar.gz
-        sha256: 8ff511a64fc46ee792d3fe49a5a1bcad6f7dc50dfbba5a28b0e5b979c17f9871
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protobuf-26.1.tar.gz
+        sha256: 4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8
     cleanup:
       - /bin
 
@@ -228,8 +228,8 @@ modules:
       - -DNEON=OFF
     sources:
       - type: archive
-        url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.2.tar.gz
-        sha256: ed714f84a3e748de87b24f385ec69d3bdc51ca47b7f4710d2048b84b2761e7ff
+        url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.3.tar.gz
+        sha256: 43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99
 
   # ID3 tag library
   - name: libid3tag
@@ -252,8 +252,8 @@ modules:
       - -Dudevhwdbdir=/app/etc/udev/hwdb.d
     sources:
       - type: archive
-        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.2/upower-v1.90.2.tar.gz
-        sha256: 5c4e736648f0c89d2368fbbe1e6fc0598a1565c4b435bade1d65e890259fb759
+        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.4/upower-v1.90.4.tar.gz
+        sha256: cd194dd278bd8d058b4728efd1d0a91cdf017378f025b558beb6f60a86af4781
     cleanup:
       - /bin
       - /etc
@@ -322,10 +322,10 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.20.1.tar.gz
-        sha256: 69bdbd0e68f12858b79795a76a6023962f93f819ca36ea56a9d4680901865d13
+        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.20.2.tar.gz
+        sha256: 3024b8b49bc0bd673a7f032e7da7b73ce61144951e810683ec89650fedd45b85
 
-  # Mixxx 2.4.0
+  # Mixxx 2.4.1
   - name: mixxx
     buildsystem: cmake-ninja
     config-opts:
@@ -340,8 +340,8 @@ modules:
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.4.0.tar.gz
-      sha256: a426bcf6fd9ec517156f524d5236b6929e3e1235af6b6c5240e352309b15db16
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.4.1.tar.gz
+      sha256: d43508b84b62f271f49c028c424962a850f49a0045bbbcb7b7ac1084ccb065c4
     - type: file
       path: org.mixxx.Mixxx.metainfo.xml
     - type: script

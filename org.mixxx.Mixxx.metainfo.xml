@@ -41,7 +41,7 @@
   <screenshots>
     <screenshot type="default">
       <image>https://mixxx.org/theme/images/2.4/screenshots/Latenight_2decks_basic.png</image>
-      <caption>Mixxx with LateNight PaleMoon skin (default) and two decks</caption>
+      <caption>Mixxx with LateNight PaleMoon skin and two decks</caption>
     </screenshot>
     <screenshot>
       <image>https://mixxx.org/theme/images/2.4/screenshots/Deere_2decks_basic.png</image>
@@ -57,6 +57,25 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.4.1" date="2024-05-08">
+    <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4.1/CHANGELOG.md</url>
+      <description>
+        <p>
+          Mixxx 2.4.1 is a minor release with numerous bugfixes and small
+          improvements. The release highlights include:
+        </p>
+        <ul>
+          <li>Improved mappings for various controllers from Behringer, Denon,
+          Hercules, Nintendo, Pioneer and Native Instruments</li>
+          <li>Several UI improvements, including animated latching of sync
+          button, enhanced drag &amp; drop support and more polished FX chain
+          controls</li>
+          <li>Added track count and duration for history playlists</li>
+          <li>Improved removable drive support on Linux systems</li>
+          <li>Fixes for library migration between Linux / macOS and Windows</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.4.0" date="2024-02-16">
     <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4/CHANGELOG.md</url>
       <description>
