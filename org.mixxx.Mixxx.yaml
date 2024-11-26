@@ -1,6 +1,6 @@
 app-id: org.mixxx.Mixxx
 runtime: org.kde.Platform
-runtime-version: '5.15-23.08'
+runtime-version: '5.15-24.08'
 sdk: org.kde.Sdk
 command: mixxx
 rename-icon: mixxx
@@ -87,8 +87,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz
-        sha256: 8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7
+        url: https://github.com/google/googletest/releases/download/v1.15.2/googletest-1.15.2.tar.gz
+        sha256: 7b42b4d6ed48810c5362c265a17faebe90dc2373c885e5216439d37927f02926
 
   # Google benchmark library
   - name: benchmark
@@ -100,8 +100,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/google/benchmark/archive/refs/tags/v1.8.3.tar.gz
-        sha256: 6bc180a57d23d4d9515519f92b0c83d61b05b5bab188961f36ac7b06b0d9e9ce
+        url: https://github.com/google/benchmark/archive/refs/tags/v1.9.0.tar.gz
+        sha256: 35a77f46cc782b16fac8d3b107fbfbb37dcd645f7c28eee19f3b8e0758b48994
 
   # Microsoft GSL library
   - name: gsl
@@ -112,8 +112,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.0.0.tar.gz
-        sha256: f0e32cb10654fea91ad56bde89170d78cfbf4363ee0b01d8f097de2ba49f6ce9
+        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.1.0.tar.gz
+        sha256: 0a227fc9c8e0bf25115f401b9a46c2a68cd28f299d24ab195284eb3f1d7794bd
     cleanup:
       - /share/cmake
 
@@ -126,8 +126,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/abseil/abseil-cpp/releases/download/20240116.2/abseil-cpp-20240116.2.tar.gz
-        sha256: 733726b8c3a6d39a4120d7e45ea8b41a434cdacde401cba500f14236c49b39dc
+        url: https://github.com/abseil/abseil-cpp/releases/download/20240722.0/abseil-cpp-20240722.0.tar.gz
+        sha256: f50e5ac311a81382da7fa75b97310e4b9006474f9560ac46f54a9967f07d4ae3
 
   # Google protocol buffers
   - name: protobuf
@@ -139,8 +139,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protobuf-26.1.tar.gz
-        sha256: 4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protobuf-28.3.tar.gz
+        sha256: 7c3ebd7aaedd86fa5dc479a0fda803f602caaf78d8aff7ce83b89e1b8ae7442a
     cleanup:
       - /bin
 
@@ -215,8 +215,8 @@ modules:
       - -Dlv2=disabled
     sources:
       - type: archive
-        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v3.3.0.tar.gz
-        sha256: 2bb837fe00932442ca90e185af8a468f7591df0c002b4a9e27a1bced1563ac84
+        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v4.0.0.tar.gz
+        sha256: 24300f48a8014b7c863b573a9647e61b1b19b37875e2cdd92005e64c6424d266
 
   # Audio time stretching and pitch shifting library
   - name: soundtouch
@@ -252,8 +252,8 @@ modules:
       - -Dudevhwdbdir=/app/etc/udev/hwdb.d
     sources:
       - type: archive
-        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.4/upower-v1.90.4.tar.gz
-        sha256: cd194dd278bd8d058b4728efd1d0a91cdf017378f025b558beb6f60a86af4781
+        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.6/upower-v1.90.6.tar.gz
+        sha256: 7e367c2619ca0f26d5bfc085b46bad9657b2774cc3eaffbf310b607df6e21377
     cleanup:
       - /bin
       - /etc
@@ -288,8 +288,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.14.2.tar.gz
-        sha256: cf2e972b783ba66334a79a30f6b3a1ea794a1dc574d6c3bebae5ffd2f0399571
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.14.3.tar.gz
+        sha256: a22c708f351431d8736a0ac5c562414f2b7bb919a6292cbca1ff7ac0849cb0a7
     cleanup:
       - /mkspecs
 
@@ -322,10 +322,10 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.20.2.tar.gz
-        sha256: 3024b8b49bc0bd673a7f032e7da7b73ce61144951e810683ec89650fedd45b85
+        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.22.1.tar.gz
+        sha256: e811158d42c3864f5b682bcf76e0af78278050439d82d14d592dd0a391da6b20
 
-  # Mixxx 2.4.1
+  # Mixxx 2.4.2
   - name: mixxx
     buildsystem: cmake-ninja
     config-opts:
@@ -340,8 +340,8 @@ modules:
       - install -d /app/extensions/Plugins
     sources:
     - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.4.1.tar.gz
-      sha256: d43508b84b62f271f49c028c424962a850f49a0045bbbcb7b7ac1084ccb065c4
+      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.4.2.tar.gz
+      sha256: 364a731e132e610fceb7875f508a321619ce7c5430e236a7fe77e08c4f0b3234
     - type: file
       path: org.mixxx.Mixxx.metainfo.xml
     - type: script
