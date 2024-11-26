@@ -5,7 +5,9 @@
   <project_license>GPL-2.0</project_license>
   <name>Mixxx</name>
   <summary>Perform live DJ mixes</summary>
-  <developer_name>The Mixxx Development Team</developer_name>
+  <developer id="@mixxx@floss.social">
+    <name>The Mixxx Development Team</name>
+  </developer>
   <description>
     <p>
       Mixxx is a highly customizable, cross-platform DJ application that
@@ -57,6 +59,25 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.4.2" date="2024-11-26">
+    <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4.2/CHANGELOG.md</url>
+      <description>
+        <p>
+          Mixxx 2.4.2 is a new minor release with several improvements and bugfixes.
+          The release highlights include:
+        </p>
+        <ul>
+          <li>Brand new mappings for Intech Studio TEK2, Numark Scratch and Reloop
+          Mixage MK1, MK2 and Controller Edition</li>
+          <li>Updated mappings for controllers from Denon, Korg, Novation, Numark,
+          Pioneer, Reloop and Sony</li>
+          <li>Support for Ubuntu 24.10 (Oracular Oriole)</li>
+          <li>Improved drag &amp; drop functionality</li>
+          <li>Better controller engine logging</li>
+          <li>Various fixes for auto DJ, music library, playlists and history</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.4.1" date="2024-05-08">
     <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4.1/CHANGELOG.md</url>
       <description>
