@@ -42,23 +42,48 @@
   <url type="vcs-browser">https://github.com/mixxxdj/mixxx</url>
   <screenshots>
     <screenshot type="default">
-      <image>https://mixxx.org/theme/images/2.4/screenshots/Latenight_2decks_basic.png</image>
+      <image>https://mixxx.org/theme/images/2.5/screenshots/Latenight_2decks_basic.png</image>
       <caption>Mixxx with LateNight PaleMoon skin and two decks</caption>
     </screenshot>
     <screenshot>
-      <image>https://mixxx.org/theme/images/2.4/screenshots/Deere_2decks_basic.png</image>
+      <image>https://mixxx.org/theme/images/2.5/screenshots/Deere_2decks_basic.png</image>
       <caption>Mixxx with Deere skin and two decks</caption>
     </screenshot>
     <screenshot>
-      <image>https://mixxx.org/theme/images/2.4/screenshots/Tango_2decks_basic.png</image>
+      <image>https://mixxx.org/theme/images/2.5/screenshots/Tango_2decks_basic.png</image>
       <caption>Mixxx with Tango skin and two decks</caption>
     </screenshot>
     <screenshot>
-      <image>https://mixxx.org/theme/images/2.4/screenshots/Shade_basic.png</image>
+      <image>https://mixxx.org/theme/images/2.5/screenshots/Shade_basic.png</image>
       <caption>Mixxx with Shade skin</caption>
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.5.0" date="2024-12-24">
+    <url type="details">https://github.com/mixxxdj/mixxx/blob/2.5/CHANGELOG.md</url>
+      <description>
+        <p>
+          Mixxx 2.5.0 is a major release with tons of new features and important
+          changes under the hood. It includes the following highlights:
+        </p>
+        <ul>
+          <li>Mixxx now uses the latest Qt 6 framework, offering improved
+          performance and enhanced compatibility with modern systems</li>
+          <li>Adjustable beatloop anchor and BPM rate tap &amp; change undo features</li>
+          <li>New audio effects: compressor and glitch</li>
+          <li>Support for storing and restoring regular loops when toggling rolling loops</li>
+          <li>Keyboard shortcuts for playlist management and custom track colors for
+          played and missing tracks</li>
+          <li>Sidebar actions for playlist shuffle and directory tree refresh</li>
+          <li>New multi-track property / batch tag editor and enhanced search filters</li>
+          <li>Support for starting auto DJ on launch and automatically hiding the menubar</li>
+          <li>Split RGB GLSL waveforms for visualizing slip mode position and waveform
+          beats / time display until next marker</li>
+          <li>Improved mappings for Denon MC7000, Numark Scratch, Pioneer DDJ-FLX4,
+          NI Traktor Kontrol S4 MK3 and MIDI for light</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.4.2" date="2024-11-26">
     <url type="details">https://github.com/mixxxdj/mixxx/blob/2.4.2/CHANGELOG.md</url>
       <description>
