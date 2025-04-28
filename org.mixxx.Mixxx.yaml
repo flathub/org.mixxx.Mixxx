@@ -87,8 +87,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/google/googletest/releases/download/v1.15.2/googletest-1.15.2.tar.gz
-        sha256: 7b42b4d6ed48810c5362c265a17faebe90dc2373c885e5216439d37927f02926
+        url: https://github.com/google/googletest/releases/download/v1.16.0/googletest-1.16.0.tar.gz
+        sha256: 78c676fc63881529bf97bf9d45948d905a66833fbfa5318ea2cd7478cb98f399
 
   # Google benchmark library
   - name: benchmark
@@ -100,8 +100,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/google/benchmark/archive/refs/tags/v1.9.0.tar.gz
-        sha256: 35a77f46cc782b16fac8d3b107fbfbb37dcd645f7c28eee19f3b8e0758b48994
+        url: https://github.com/google/benchmark/archive/refs/tags/v1.9.2.tar.gz
+        sha256: 409075176168dc46bbb81b74c1b4b6900385b5d16bfc181d678afb060d928bd3
 
   # Microsoft GSL library
   - name: gsl
@@ -112,35 +112,22 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.1.0.tar.gz
-        sha256: 0a227fc9c8e0bf25115f401b9a46c2a68cd28f299d24ab195284eb3f1d7794bd
+        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.2.0.tar.gz
+        sha256: 2c717545a073649126cb99ebd493fa2ae23120077968795d2c69cbab821e4ac6
     cleanup:
       - /share/cmake
-
-  # Abseil C++ library
-  - name: abseil-cpp
-    buildsystem: cmake-ninja
-    config-opts:
-      # Use and propagate CMake C++ standard meta features
-      - -DABSL_PROPAGATE_CXX_STD=ON
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-    sources:
-      - type: archive
-        url: https://github.com/abseil/abseil-cpp/releases/download/20240722.0/abseil-cpp-20240722.0.tar.gz
-        sha256: f50e5ac311a81382da7fa75b97310e4b9006474f9560ac46f54a9967f07d4ae3
 
   # Google protocol buffers
   - name: protobuf
     buildsystem: cmake-ninja
     config-opts:
-      # Disable tests and use our external Abseil build
+      # Disable tests
       - -Dprotobuf_BUILD_TESTS=off
-      - -Dprotobuf_ABSL_PROVIDER=package
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v29.2/protobuf-29.2.tar.gz
-        sha256: 63150aba23f7a90fd7d87bdf514e459dd5fe7023fdde01b56ac53335df64d4bd
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v30.2/protobuf-30.2.tar.gz
+        sha256: fb06709acc393cc36f87c251bb28a5500a2e12936d4346099f2c6240f6c7a941
     cleanup:
       - /bin
 
@@ -215,8 +202,8 @@ modules:
       - -Dlv2=disabled
     sources:
       - type: archive
-        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v3.3.0.tar.gz
-        sha256: 2bb837fe00932442ca90e185af8a468f7591df0c002b4a9e27a1bced1563ac84
+        url: https://github.com/breakfastquay/rubberband/archive/refs/tags/v4.0.0.tar.gz
+        sha256: 24300f48a8014b7c863b573a9647e61b1b19b37875e2cdd92005e64c6424d266
 
   # Audio time stretching and pitch shifting library
   - name: soundtouch
@@ -228,8 +215,8 @@ modules:
       - -DNEON=OFF
     sources:
       - type: archive
-        url: https://codeberg.org/soundtouch/soundtouch/archive/2.3.3.tar.gz
-        sha256: 43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99
+        url: https://codeberg.org/soundtouch/soundtouch/archive/2.4.0.tar.gz
+        sha256: 3dda3c9ab1e287f15028c010a66ab7145fa855dfa62763538f341e70b4d10abd
 
   # ID3 tag library
   - name: libid3tag
@@ -252,8 +239,8 @@ modules:
       - -Dudevhwdbdir=/app/etc/udev/hwdb.d
     sources:
       - type: archive
-        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.6/upower-v1.90.6.tar.gz
-        sha256: 7e367c2619ca0f26d5bfc085b46bad9657b2774cc3eaffbf310b607df6e21377
+        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.9/upower-v1.90.9.tar.gz
+        sha256: fffd45c50d29ed73ecdcfb11c3a7bb042ef14e84b14b0c2d5fdb78c7b4435d6c
     cleanup:
       - /bin
       - /etc
@@ -290,8 +277,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.14.3.tar.gz
-        sha256: a22c708f351431d8736a0ac5c562414f2b7bb919a6292cbca1ff7ac0849cb0a7
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.15.0.tar.gz
+        sha256: f4254dc8f0933b06d90672d683eab08ef770acd8336e44dfa030ce041dc2ca22
     cleanup:
       - /mkspecs
 
@@ -324,10 +311,10 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.22.1.tar.gz
-        sha256: e811158d42c3864f5b682bcf76e0af78278050439d82d14d592dd0a391da6b20
+        url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.24.3.tar.gz
+        sha256: df41fe39bed9d16d27a3649d237b68edd2cdb6fc71a82cae5cd746d4e4ef6578
 
-  # Mixxx 2.5.0
+  # Mixxx 2.5.1
   - name: mixxx
     buildsystem: cmake-ninja
     config-opts:
@@ -341,13 +328,16 @@ modules:
       - install -Dm644 org.mixxx.Mixxx.metainfo.xml /app/share/metainfo/org.mixxx.Mixxx.metainfo.xml
       - install -d /app/extensions/Plugins
     sources:
-    - type: archive
-      url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.5.0.tar.gz
-      sha256: 95ad113f1988abaa4fabc2e19027d5456a6ba9cb0f6366a386a2239030f41089
-    - type: file
-      path: org.mixxx.Mixxx.metainfo.xml
-    - type: script
-      dest-filename: mixxx.sh
-      commands:
-        - export LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2
-        - exec mixxx.bin "$@"
+      - type: archive
+        url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.5.1.tar.gz
+        sha256: 626f7a64292c1ef77d8aace4a746140f455596d44a6984db9d1e4caf4c4ce09d
+      - type: file
+        path: org.mixxx.Mixxx.metainfo.xml
+      - type: script
+        dest-filename: mixxx.sh
+        commands:
+          - export LV2_PATH=$HOME/.lv2:/app/extensions/Plugins/lv2:/app/lib/lv2
+          - exec mixxx.bin "$@"
+    cleanup:
+      - /share/icons/hicolor/scalable/apps/mixxx_ios.svg
+      - /share/icons/hicolor/scalable/apps/mixxx_macos.svg
