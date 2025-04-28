@@ -59,6 +59,28 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.5.1" date="2025-04-27">
+    <url type="details">https://github.com/mixxxdj/mixxx/blob/2.5.1/CHANGELOG.md</url>
+      <description>
+        <p>
+          Mixxx 2.5.1 is a minor release with numerous bugfixes and small improvements.
+          The release highlights include:
+        </p>
+        <ul>
+          <li>New mappings for DJ TechTools MIDI Fighter Spectra, Hercules DJControl
+          Inpulse 500, M-Vave SMC-Mixer, Numark NS6II &amp; Platinum FX and Reloop
+          Digital Jockey 2 IE</li>
+          <li>Updated mappings for Behringer DDM4000 &amp; BCR2000, Hercules DJ Console Mk1,
+          Numark Mixtrack Platinum, Pioneer-DDJ-SB3, NI Traktor Kontrol S3 &amp; S4 MK3,
+          Stanton SCS.1m/d, Keith McMillen QuNeo and EKS Otus</li>
+          <li>Toneplay, slicer and beatmatch features for Hercules DJControl Inpulse 300</li>
+          <li>New piano keyboard mapping for M-Vave SMK-25 II</li>
+          <li>Improved MIDI learning search functionality and sampler controls</li>
+          <li>Better waveform overview with expanded render analysis and position dragging</li>
+          <li>Various fixes for controller preferences and music library functions</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.5.0" date="2024-12-24">
     <url type="details">https://github.com/mixxxdj/mixxx/blob/2.5/CHANGELOG.md</url>
       <description>
