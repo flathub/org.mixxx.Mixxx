@@ -328,9 +328,9 @@ modules:
       - install -Dm644 org.mixxx.Mixxx.metainfo.xml /app/share/metainfo/org.mixxx.Mixxx.metainfo.xml
       - install -d /app/extensions/Plugins
     sources:
-      - type: archive
-        url: https://github.com/mixxxdj/mixxx/archive/refs/tags/2.5.1.tar.gz
-        sha256: 626f7a64292c1ef77d8aace4a746140f455596d44a6984db9d1e4caf4c4ce09d
+      - type: git
+        url: https://github.com/mixxxdj/mixxx.git
+        tag: '2.5.1'
       - type: file
         path: org.mixxx.Mixxx.metainfo.xml
       - type: script
