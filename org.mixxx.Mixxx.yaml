@@ -314,7 +314,7 @@ modules:
         url: https://github.com/xsco/libdjinterop/archive/refs/tags/0.24.3.tar.gz
         sha256: df41fe39bed9d16d27a3649d237b68edd2cdb6fc71a82cae5cd746d4e4ef6578
 
-  # Mixxx 2.5.1
+  # Mixxx 2.5.2
   - name: mixxx
     buildsystem: cmake-ninja
     config-opts:
@@ -330,7 +330,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/mixxxdj/mixxx.git
-        tag: '2.5.1'
+        tag: '2.5.2'
       - type: file
         path: org.mixxx.Mixxx.metainfo.xml
       - type: script
