@@ -1,0 +1,22 @@
+diff --git a/res/linux/org.mixxx.Mixxx.metainfo.xml b/res/linux/org.mixxx.Mixxx.metainfo.xml
+index 8e00727..b5c51ce 100644
+--- a/res/linux/org.mixxx.Mixxx.metainfo.xml
++++ b/res/linux/org.mixxx.Mixxx.metainfo.xml
+@@ -6,6 +6,9 @@
+   <project_license>GPL-2.0</project_license>
+   <name>Mixxx DJ Software</name>
+   <summary>Everything you need to perform live DJ mixes</summary>
++  <developer id="@mixxx@floss.social">
++    <name>The Mixxx Development Team</name>
++  </developer>
+   <description>
+     <p>
+       Mixxx is free DJ software that gives you everything you need to perform
+@@ -85,6 +88,7 @@
+       <caption>Mixxx with the Tango skin</caption>
+     </screenshot>
+   </screenshots>
++  <content_rating type="oars-1.1" />
+   <url type="homepage">https://mixxx.org</url>
+   <url type="bugtracker">https://github.com/mixxxdj/mixxx/issues/</url>
+   <url type="donation">https://mixxx.org/donate/</url>
