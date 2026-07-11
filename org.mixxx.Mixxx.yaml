@@ -91,8 +91,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/google/benchmark/archive/refs/tags/v1.9.4.tar.gz
-        sha256: b334658edd35efcf06a99d9be21e4e93e092bd5f95074c1673d5c8705d95c104
+        url: https://github.com/google/benchmark/archive/refs/tags/v1.9.5.tar.gz
+        sha256: 9631341c82bac4a288bef951f8b26b41f69021794184ece969f8473977eaa340
 
   # Microsoft GSL library
   - name: gsl
@@ -103,8 +103,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.2.0.tar.gz
-        sha256: 2c717545a073649126cb99ebd493fa2ae23120077968795d2c69cbab821e4ac6
+        url: https://github.com/microsoft/GSL/archive/refs/tags/v4.2.2.tar.gz
+        sha256: 59e2a0a0ea22e8bcf9db2dc4d4bd21212ac6595748295fc27a7e02cf75eac4b5
     cleanup:
       - /share/cmake
 
@@ -117,8 +117,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/protocolbuffers/protobuf/releases/download/v33.0/protobuf-33.0.tar.gz
-        sha256: cbc536064706b628dcfe507bef386ef3e2214d563657612296f1781aa155ee07
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v35.1/protobuf-35.1.tar.gz
+        sha256: f0b6838e7522a8da96126d487068c959bc624926368f3024ac8fd03abd0a1ac4
     cleanup:
       - /bin
 
@@ -140,8 +140,8 @@ modules:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.6.tar.gz
-        sha256: 81d22b34051621cd56c8d5ef12908ef2a59764c9cdfba6dae47aabddb71ac914
+        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.7.tar.gz
+        sha256: 43fa65b4ed7ebaa68b0028a538ba8b2ca4dc9b86a7e22ec48842070e010f823f
     cleanup:
       - /bin
 
@@ -192,8 +192,8 @@ modules:
       - -DNEON=OFF
     sources:
       - type: archive
-        url: https://codeberg.org/soundtouch/soundtouch/archive/2.4.0.tar.gz
-        sha256: 3dda3c9ab1e287f15028c010a66ab7145fa855dfa62763538f341e70b4d10abd
+        url: https://codeberg.org/soundtouch/soundtouch/archive/2.4.1.tar.gz
+        sha256: e07abf20ce8f95850c280132e1f61ad400fc1f4011b7fac698a503de6aab6733
 
   # ID3 tag library
   - name: libid3tag
@@ -203,8 +203,8 @@ modules:
       - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     sources:
       - type: archive
-        url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.3.tar.gz
-        sha256: 0561009778513a95d91dac33cee8418d6622f710450a7cb56a74636d53b588cb
+        url: https://codeberg.org/tenacityteam/libid3tag/archive/0.16.4.tar.gz
+        sha256: ceb88ada1aa867c87c1d748a8aa40e68db5b0d2df636a9dab0ab1f7741d5e009
 
   # Power management interface, used for battery level indicator
   - name: upower
@@ -217,8 +217,8 @@ modules:
       - -Dudevhwdbdir=/app/etc/udev/hwdb.d
     sources:
       - type: archive
-        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.10/upower-v1.90.10.tar.gz
-        sha256: 7fcd51bece2526dbee5170feb3ffd1adab5b0cd023575f1fd119d969b73f4b90
+        url: https://gitlab.freedesktop.org/upower/upower/-/archive/v1.91.3/upower-v1.91.3.tar.gz
+        sha256: 6cef641ce39f13efc09e12afbb889128d4e9b3596a1faeaaa1b619fdf72403a9
     cleanup:
       - /bin
       - /etc
@@ -247,13 +247,11 @@ modules:
   - name: qtkeychain
     buildsystem: cmake-ninja
     config-opts:
-      # Build with Qt 6 support
-      - -DBUILD_WITH_QT6=ON
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
     sources:
       - type: archive
-        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.15.0.tar.gz
-        sha256: f4254dc8f0933b06d90672d683eab08ef770acd8336e44dfa030ce041dc2ca22
+        url: https://github.com/frankosterfeld/qtkeychain/archive/refs/tags/0.17.0.tar.gz
+        sha256: 3b85c3929034b0a99da777130c34d99f006fcd3a9d56564159399a33fee0e504
     cleanup:
       - /mkspecs
 
